@@ -53,7 +53,7 @@ const CarouselComponent: React.FC = () => {
       {slides.map((slide, index) => (
         <div
           key={index}
-          className="relative w-full h-[80vh] flex items-center justify-center px-6 lg:px-10"
+          className="relative w-full h-[80vh] flex items-center justify-center px-8 lg:px-12"
         >
           {/* Background Overlay */}
           <div
