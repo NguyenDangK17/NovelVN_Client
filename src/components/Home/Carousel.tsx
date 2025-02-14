@@ -6,52 +6,91 @@ const CarouselComponent: React.FC = () => {
     {
       image:
         "https://mangadex.org/covers/3b62f955-732c-43b2-84e7-cc1ff57896a7/7bd9d778-ad3a-4e6c-ac9a-c8f025fb07b4.png.512.jpg",
-      title: "Title 1",
+      title:
+        "Abandoned ~Tsuyosugite Buki ga Kowareru Yuusha to Buki Shokunin no Elf~",
       description: "This is the description for the first image.",
+      tags: ["Action", "Fantasy", "Adventure"],
     },
     {
       image:
-        "https://i.docln.net/lightnovel/covers/b16403-483e2571-df43-4356-973d-97b148b6e3e8-m.jpg",
-      title: "Title 2",
+        "https://mangadex.org/covers/ac983725-5e63-4ebe-8dc8-94ca5e4c5982/d3b10777-34a2-427f-8808-2d0abbfb95eb.jpg.512.jpg",
+      title: "Uchi ni Kaeru to Itsumo Kukkoro ga Iru",
       description: "This is the description for the second image.",
+      tags: ["Comedy", "Slice of Life"],
     },
     {
       image:
-        "https://i.docln.net/lightnovel/covers/s7855-0342197e-58c7-47c1-baab-01cdc0ec6274-m.jpg",
-      title: "Title 3",
+        "https://mangadex.org/covers/f349008f-0896-4ec8-bc37-56733525dfc7/e04eb3c0-1264-41f4-b7a9-850481803cbf.png.512.jpg",
+      title: "Girls x Vampire",
       description: "This is the description for the third image.",
+      tags: ["Romance", "Supernatural"],
+    },
+    {
+      image:
+        "https://mangadex.org/covers/452ca5c5-8132-4cc9-9c60-2d0ebd62c5be/8f801d5d-4ff9-4089-9ba6-835689365735.jpg.512.jpg",
+      title: "Gal Oshi JK wa Gal ni Naritai",
+      description: "This is the description for the first image.",
+      tags: ["School", "Drama"],
+    },
+    {
+      image:
+        "https://mangadex.org/covers/9d9b04ad-9a83-49f4-8ae4-a9a3780fe9c0/800833b8-8fee-4309-8e2d-d83df6b842a6.jpg.512.jpg",
+      title: "Sakamoto Days",
+      description: "This is the description for the first image.",
+      tags: ["Action", "Comedy"],
+    },
+    {
+      image:
+        "https://mangadex.org/covers/1bfbb8cf-96ea-416e-b211-656a9eb04a57/d0e4aa79-763d-4710-856a-3495aa3dc801.png.512.jpg",
+      title: "Kyou Kara Tsukaeru Isekai Ren'ai Manual",
+      description: "This is the description for the first image.",
+      tags: ["Isekai", "Romance"],
     },
   ];
 
   return (
-    <Carousel className="mt-20 mr-[-1px]">
+    <Carousel autoplay pauseOnHover={false} className="mt-20 mr-[-1px]">
       {slides.map((slide, index) => (
         <div
           key={index}
-          className="relative w-full h-[80vh] flex items-center justify-center"
+          className="relative w-full h-[80vh] flex items-center justify-center px-6 lg:px-10"
         >
+          {/* Background Overlay */}
           <div
             className="absolute inset-[-1px] bg-cover bg-center"
             style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(36, 36, 36, 0.6) 10%, rgb(36, 36, 36) 90%), url(${slide.image})`,
-              backgroundPosition: "center 25%",
+              backgroundImage: `linear-gradient(to bottom, rgba(25, 26, 28, 0.6) 10%, rgb(25, 26, 28) 90%), url(${slide.image})`,
+              backgroundPosition: "center 27%",
             }}
           />
-          {/* Content */}
-          <div className="relative flex w-3/4 h-full">
-            {/* Image */}
-            <div className="w-1/2 flex items-center justify-center">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-[80%] sm:w-[300px] md:w-[320px] lg:w-[283px] h-auto max-h-[403px] object-cover bg-white shadow-lg rounded-md"
-              />
+
+          {/* Content Wrapper */}
+          <div className="relative flex w-full max-w-6xl h-full items-start gap-4 mt-20">
+            <div className="w-[25%] flex justify-center">
+              <div className="w-full max-w-[283px]">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-auto aspect-[283/403] object-cover rounded-md"
+                />
+              </div>
             </div>
 
-            {/* Title & Description */}
-            <div className="w-1/2 flex flex-col justify-center p-6 text-white">
-              <h2 className="text-3xl font-bold mb-4">{slide.title}</h2>
-              <p className="text-lg">{slide.description}</p>
+            <div className="w-[75%] flex flex-col justify-start text-white">
+              <h2 className="text-lg sm:text-2xl lg:text-4xl font-bold mb-2 sm:mb-4">
+                {slide.title}
+              </h2>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {slide.tags.map((tag, tagIndex) => (
+                  <span
+                    key={tagIndex}
+                    className="bg-gray-700 text-xs sm:text-sm px-2 py-1 rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <p className="text-sm sm:text-lg">{slide.description}</p>
             </div>
           </div>
         </div>

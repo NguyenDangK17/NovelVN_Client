@@ -10,10 +10,8 @@ const Navbar: React.FC = () => {
   const controlNavbar = () => {
     if (typeof window !== "undefined") {
       if (window.scrollY > lastScrollY) {
-        // if scroll down hide the navbar
         setIsVisible(false);
       } else {
-        // if scroll up show the navbar
         setIsVisible(true);
       }
       setLastScrollY(window.scrollY);
@@ -23,8 +21,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", controlNavbar);
-
-      // cleanup function
       return () => {
         window.removeEventListener("scroll", controlNavbar);
       };
@@ -33,21 +29,18 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`bg-white border-gray-200 dark:bg-gray-900 fixed w-full transition-transform duration-300 z-[1000] ${
+      className={`bg-[#2c2c2c] border-gray-200 fixed w-full transition-transform duration-300 z-[1000] ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a
-          href="https://flowbite.com/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
+        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
+            src="https://mangadex.org/img/brand/mangadex-logo.svg"
             className="h-8"
             alt="Flowbite Logo"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
             NovelVN
           </span>
         </a>
@@ -56,7 +49,7 @@ const Navbar: React.FC = () => {
           {/* Mobile Search Button */}
           <button
             type="button"
-            className="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1"
+            className="md:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#ff5722] rounded-lg text-sm p-2.5 me-1"
             onClick={() => setSearchOpen(!isSearchOpen)}
           >
             <svg
@@ -81,7 +74,7 @@ const Navbar: React.FC = () => {
           <div className="relative hidden md:block w-[300px]">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                className="w-4 h-4 text-gray-500"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -99,7 +92,7 @@ const Navbar: React.FC = () => {
             </div>
             <input
               type="text"
-              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
               placeholder="Search..."
             />
           </div>
@@ -110,7 +103,7 @@ const Navbar: React.FC = () => {
           <div className="relative mt-3 md:hidden w-full">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                className="w-4 h-4 text-gray-500"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -127,7 +120,7 @@ const Navbar: React.FC = () => {
             </div>
             <input
               type="text"
-              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#ff5722] focus:border-[#ff5722]"
               placeholder="Search..."
             />
           </div>
@@ -137,7 +130,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button
             type="button"
-            className="flex text-sm bg-white rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            className="flex text-sm bg-white rounded-full md:me-0 focus:ring-2 focus:ring-[#ff5722]"
             id="user-menu-button"
             aria-expanded={isDropdownOpen}
             onClick={() => setDropdownOpen(!isDropdownOpen)}
@@ -151,12 +144,12 @@ const Navbar: React.FC = () => {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute top-16 right-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600">
+            <div className="absolute top-16 right-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
               <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">
+                <span className="block text-sm text-gray-900">
                   Bonnie Green
                 </span>
-                <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                <span className="block text-sm text-gray-500 truncate">
                   name@flowbite.com
                 </span>
               </div>
@@ -164,7 +157,7 @@ const Navbar: React.FC = () => {
                 <li>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Dashboard
                   </a>
@@ -172,7 +165,7 @@ const Navbar: React.FC = () => {
                 <li>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Settings
                   </a>
@@ -180,7 +173,7 @@ const Navbar: React.FC = () => {
                 <li>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Earnings
                   </a>
@@ -188,7 +181,7 @@ const Navbar: React.FC = () => {
                 <li>
                   <a
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign out
                   </a>
@@ -200,7 +193,7 @@ const Navbar: React.FC = () => {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#ff5722]"
             aria-controls="navbar-user"
             aria-expanded={isMenuOpen}
             onClick={() => setMenuOpen(!isMenuOpen)}
@@ -231,46 +224,65 @@ const Navbar: React.FC = () => {
           } items-center justify-between w-full md:flex md:w-auto md:order-1`}
           id="navbar-user"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-[#2c2c2c]">
             <li>
               <a
-                onClick={() => (window.location.href = "/")}
-                className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                aria-current="page"
+                href="/"
+                className={`block py-2 px-3 rounded-sm md:p-0 hover:cursor-pointer ${
+                  location.pathname === "/"
+                    ? "text-[#ff5722]"
+                    : "text-white hover:text-[#ff5722]"
+                }`}
               >
                 Home
               </a>
             </li>
             <li>
               <a
-                onClick={() => (window.location.href = "/novel")}
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                href="/novel"
+                className={`block py-2 px-3 rounded-sm md:p-0 hover:cursor-pointer ${
+                  location.pathname === "/novel"
+                    ? "text-[#ff5722]"
+                    : "text-white hover:text-[#ff5722]"
+                }`}
               >
                 Novel
               </a>
             </li>
             <li>
               <a
-                onClick={() => (window.location.href = "/manga")}
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                href="/manga"
+                className={`block py-2 px-3 rounded-sm md:p-0 hover:cursor-pointer ${
+                  location.pathname === "/manga"
+                    ? "text-[#ff5722]"
+                    : "text-white hover:text-[#ff5722]"
+                }`}
               >
                 Manga
               </a>
             </li>
             <li>
               <a
-                onClick={() => (window.location.href = "/")}
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                href="/forums"
+                className={`block py-2 px-3 rounded-sm md:p-0 hover:cursor-pointer ${
+                  location.pathname === "/forums"
+                    ? "text-[#ff5722]"
+                    : "text-white hover:text-[#ff5722]"
+                }`}
               >
-                About Us
+                Forums
               </a>
             </li>
             <li>
               <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                href="/about"
+                className={`block py-2 px-3 rounded-sm md:p-0 hover:cursor-pointer ${
+                  location.pathname === "/about"
+                    ? "text-[#ff5722]"
+                    : "text-white hover:text-[#ff5722]"
+                }`}
               >
-                Contact
+                About Us
               </a>
             </li>
           </ul>

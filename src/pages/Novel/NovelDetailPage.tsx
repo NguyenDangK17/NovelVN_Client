@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Comic } from "../types";
+import { Comic } from "../../types";
 
 const ComicDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,7 +14,7 @@ const ComicDetail = () => {
 
     const timer = setTimeout(() => {
       axios.post(`http://localhost:5000/comics/${id}/view`);
-    }, 60000); // 1-minute delay
+    }, 60000);
 
     return () => clearTimeout(timer);
   }, [id]);
