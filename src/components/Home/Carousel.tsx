@@ -57,58 +57,60 @@ const CarouselComponent: React.FC = () => {
   ];
 
   return (
-    <Carousel
-      autoplay
-      autoplaySpeed={4000}
-      pauseOnHover={false}
-      className="mr-[-1px]"
-    >
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className="relative w-full h-[80vh] flex items-center justify-center px-8 lg:px-12"
-        >
-          {/* Background Overlay */}
+    <div className="max-w-screen-2xl mx-auto">
+      <Carousel
+        autoplay
+        autoplaySpeed={4000}
+        pauseOnHover={false}
+        className="mr-[-1px]"
+      >
+        {slides.map((slide, index) => (
           <div
-            className="absolute inset-[-1px] bg-cover bg-center"
-            style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(25, 26, 28, 0.6) 10%, rgb(25, 26, 28) 90%), url(${slide.image})`,
-              backgroundPosition: "center 25%",
-            }}
-          />
+            key={index}
+            className="relative w-full h-[80vh] flex items-center justify-center px-8 lg:px-12"
+          >
+            {/* Background Overlay */}
+            <div
+              className="absolute inset-[-1px] bg-cover bg-center"
+              style={{
+                backgroundImage: `linear-gradient(to bottom, rgba(25, 26, 28, 0.6) 10%, rgb(25, 26, 28) 90%), url(${slide.image})`,
+                backgroundPosition: "center 25%",
+              }}
+            />
 
-          {/* Content Wrapper */}
-          <div className="relative flex w-full max-w-6xl h-full items-start gap-4 mt-20">
-            <div className="w-[25%] flex justify-center">
-              <div className="w-full max-w-[283px]">
-                <img
-                  src={slide.image}
-                  alt={slide.title}
-                  className="w-full h-auto aspect-[283/403] object-cover rounded-md"
-                />
+            {/* Content Wrapper */}
+            <div className="relative flex w-full h-full items-start gap-4 mt-20">
+              <div className="w-[25%] flex justify-center">
+                <div className="w-full max-w-[283px]">
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className="w-full h-auto aspect-[283/403] object-cover"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="w-[75%] flex flex-col justify-start text-white">
-              <h2 className="text-lg sm:text-2xl lg:text-4xl font-bold mb-2 sm:mb-4">
-                {slide.title}
-              </h2>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {slide.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="bg-gray-700 text-xs sm:text-sm px-2 py-1 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="w-[75%] flex flex-col justify-start text-white">
+                <h2 className="text-lg sm:text-2xl lg:text-4xl font-bold mb-2 sm:mb-4">
+                  {slide.title}
+                </h2>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {slide.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="bg-gray-700 text-xs sm:text-sm px-2 py-1 rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-sm sm:text-lg">{slide.description}</p>
               </div>
-              <p className="text-sm sm:text-lg">{slide.description}</p>
             </div>
           </div>
-        </div>
-      ))}
-    </Carousel>
+        ))}
+      </Carousel>
+    </div>
   );
 };
 
