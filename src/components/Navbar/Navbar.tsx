@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
               className="h-8"
               alt="Flowbite Logo"
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
+            <span className="self-center text-2xl font-bold whitespace-nowrap text-white">
               NovelVN
             </span>
           </a>

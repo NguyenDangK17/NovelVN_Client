@@ -29,7 +29,7 @@ const CarouselComponent: React.FC = () => {
       image:
         "https://mangadex.org/covers/452ca5c5-8132-4cc9-9c60-2d0ebd62c5be/8f801d5d-4ff9-4089-9ba6-835689365735.jpg.512.jpg",
       title: "Gal Oshi JK wa Gal ni Naritai",
-      description: "This is the description for the first image.",
+      description: `“Living as a gal is seriously the best!!” Mimiru was an introvert in middle school, but when she entered high school, she made her long-awaited debut as a gal, thinking, “Maybe I can become a gal too!?”. She made friends with three girls: Yuuhi, a cool beauty with a calm and pretty look; Fuuka, a cute gal with a soft and fluffy look; and Kurumi, a cheerful and energetic gal who is good at sports. Now she has joined the gal group she has always admired! While she lives the sparkling life she has always dreamed of, she also pushes herself too hard to keep up with her friends. And she also notices new feelings growing within her…`,
       tags: ["School", "Drama"],
     },
     {
@@ -46,10 +46,23 @@ const CarouselComponent: React.FC = () => {
       description: "This is the description for the first image.",
       tags: ["Isekai", "Romance"],
     },
+    {
+      image:
+        "https://mangadex.org/covers/b6b89f54-81c1-4e7e-ae80-b4dccdd63ada/b9e9586c-c7a2-4e08-bf17-789e4ba8124c.png.512.jpg",
+      title:
+        "Hyouketsu Reijou-sama wo Follow Shitara, Mechamecha Dekiai Sareteshimatta Ken",
+      description: "This is the description for the first image.",
+      tags: ["Isekai", "Romance"],
+    },
   ];
 
   return (
-    <Carousel autoplay pauseOnHover={false} className="mt-20 mr-[-1px]">
+    <Carousel
+      autoplay
+      autoplaySpeed={4000}
+      pauseOnHover={false}
+      className="mr-[-1px]"
+    >
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -60,7 +73,7 @@ const CarouselComponent: React.FC = () => {
             className="absolute inset-[-1px] bg-cover bg-center"
             style={{
               backgroundImage: `linear-gradient(to bottom, rgba(25, 26, 28, 0.6) 10%, rgb(25, 26, 28) 90%), url(${slide.image})`,
-              backgroundPosition: "center 27%",
+              backgroundPosition: "center 25%",
             }}
           />
 

@@ -1,4 +1,4 @@
-export interface Comic {
+export interface Novel {
   _id: string;
   title: string;
   description: string;
