@@ -4,4 +4,5 @@ export interface Novel {
   description: string;
   image: string;
   viewCount: number;
+  content: string;
 }

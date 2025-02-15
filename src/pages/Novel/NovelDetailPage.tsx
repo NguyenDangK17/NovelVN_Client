@@ -25,7 +25,7 @@ const genres = [
 const NovelDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [novel, setNovel] = useState<Novel | null>(null);
-  const [showChapters, setShowChapters] = useState(false);
+  const [showChapters, setShowChapters] = useState(true);
 
   useEffect(() => {
     axios
@@ -228,6 +228,9 @@ const NovelDetail = () => {
                       <li
                         key={i}
                         className="py-2 border-b border-gray-700 hover:bg-[#292929] cursor-pointer px-3"
+                        onClick={() => {
+                          window.location.href = `/comic/chapter/${novel._id}`;
+                        }}
                       >
                         Chapter {i + 1} - Title {i + 1}
                       </li>
