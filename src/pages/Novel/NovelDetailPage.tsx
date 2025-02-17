@@ -69,11 +69,13 @@ const NovelDetail = () => {
             <div className="relative flex flex-col md:flex-row gap-6">
               {/* Novel Cover */}
               <div className="w-full md:w-3/12 flex justify-center">
-                <img
-                  src={novel.image}
-                  alt={novel.title}
-                  className="w-[200px] md:w-[250px] lg:w-[283px] max-w-full h-auto aspect-[283/403] rounded-md object-contain object-top object-left"
-                />
+                <div className="relative w-[200px] md:w-[250px] lg:w-[283px] max-w-full">
+                  <img
+                    src={novel.image}
+                    alt={novel.title}
+                    className="w-full h-auto aspect-[283/403] object-cover"
+                  />
+                </div>
               </div>
 
               {/* Novel Details */}
@@ -220,7 +222,7 @@ const NovelDetail = () => {
                 <img
                   src={novel.image}
                   alt="Novel Cover"
-                  className="w-[141px] h-[201px] mx-auto md:mx-0 md:mr-6"
+                  className="w-[141px] h-[201px] mx-auto md:mx-0 md:mr-6 object-cover"
                 />
                 <div className="flex-1">
                   <ul className="overflow-y-auto max-h-64">

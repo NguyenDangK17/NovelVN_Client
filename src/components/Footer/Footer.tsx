@@ -32,7 +32,7 @@ const Footer = () => {
                   </g>{" "}
                 </g>
               </svg>
-              comzonecapstone@gmail.com
+              novelvnofficial@gmail.com
             </div>
             <div className="flex flex-row gap-2 items-center text-lg">
               <svg
@@ -61,45 +61,39 @@ const Footer = () => {
         </div>
         <div className="flex flex-col lg:flex-row md:flex-row lg:gap-32 gap-8">
           <div className="list-none text-lg gap-2 flex flex-col">
-            <h4 className="font-extralight mb-4">Danh mục chính</h4>
+            <h4 className="font-bold mb-4 text-2xl text-[#ff5722]">Explore</h4>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Truyện Mới Nhất</li>
+              <li className="hover:text-gray-300">Latest Updates</li>
             </Link>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Truyện Hot</li>
+              <li className="hover:text-gray-300">Trending Novel</li>
             </Link>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Truyện Cổ Điển</li>
+              <li className="hover:text-gray-300">Romcom Novel</li>
             </Link>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Đấu Giá</li>
-            </Link>
-            <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Sưu Tầm</li>
+              <li className="hover:text-gray-300">Forums</li>
             </Link>
           </div>
           <div className="list-none text-lg gap-2 flex flex-col ">
-            <h4 className="font-extralight mb-4">Hỗ Trợ</h4>
+            <h4 className="font-bold mb-4 text-2xl text-[#ff5722]">Support</h4>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Trạng Thái Đơn Hàng</li>
+              <li className="hover:text-gray-300">Privacy Policy</li>
             </Link>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Giao Hàng & Vận Chuyển</li>
+              <li className="hover:text-gray-300">Site Rules</li>
             </Link>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Chính Sách Đổi Trả</li>
+              <li className="hover:text-gray-300">Announcements</li>
             </Link>
             <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Phương Thức Thanh Toán</li>
-            </Link>
-            <Link className="text-white" to={""}>
-              <li className="hover:text-gray-300">Liên Hệ</li>
+              <li className="hover:text-gray-300">Contact Us</li>
             </Link>
           </div>
         </div>
       </div>
       <div className="w-[75%] border-t border-t-solid px-10 py-4 lg:text-lg text-sm font-extralight">
-        © 2025 ComicZone. All rights reserved.
+        © 2025 NovelVN. All rights reserved.
       </div>
     </footer>
   );

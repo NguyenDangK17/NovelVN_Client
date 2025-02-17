@@ -211,14 +211,14 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="/filter"
+                  href="/browse"
                   className={`block py-2 px-3 rounded-sm lg:p-0 hover:cursor-pointer ${
-                    location.pathname === "/filter"
+                    location.pathname === "/browse"
                       ? "text-[#ff5722]"
                       : "text-white hover:text-[#ff5722]"
                   }`}
                 >
-                  Filter
+                  Browse
                 </a>
               </li>
               <li>
