@@ -3,7 +3,7 @@ import axios from "axios";
 import { Novel } from "../types";
 import CarouselComponent from "../components/Home/Carousel";
 import { Carousel } from "antd";
-import { FaBook } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 // Dummy Notice Board Data
 const notices = [
@@ -239,7 +239,7 @@ const Home = () => {
                   </h2>
                   <div className="flex items-center">
                     <span className="text-[#a1a1aa]">
-                      <FaBook />
+                      <FaEye />
                     </span>
                     <span className="ml-1 text-[#a1a1aa]">100,000</span>
                   </div>
@@ -259,20 +259,44 @@ const Home = () => {
           </h1>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
             {comics.slice(0, 5).map((comic) => (
-              <div
-                key={comic._id}
-                className="flex flex-col hover:cursor-pointer hover:text-[#ff5722]"
-                onClick={() => (window.location.href = `/comic/${comic._id}`)}
-              >
-                <img
-                  src={comic.image}
-                  alt={comic.title}
-                  className="w-full h-auto object-cover"
-                  style={{ aspectRatio: "283 / 403" }}
-                />
-                <h2 className="px-4 text-lg text-center font-bold mt-2 min-h-[3rem] line-clamp-2 overflow-hidden">
-                  {truncateTitle(comic.title, 40)}
-                </h2>
+              <div key={comic._id} className="flex flex-col">
+                {/* Image & Title Wrapper */}
+                <div className="group">
+                  {/* Image */}
+                  <img
+                    src={comic.image}
+                    alt={comic.title}
+                    className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+                    onClick={() =>
+                      (window.location.href = `/comic/${comic._id}`)
+                    }
+                  />
+                  {/* Title */}
+                  <h2
+                    className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
+            hover:cursor-pointer group-hover:text-[#ff5722]"
+                    onClick={() =>
+                      (window.location.href = `/comic/${comic._id}`)
+                    }
+                  >
+                    {truncateTitle(comic.title, 40)}
+                  </h2>
+                </div>
+
+                {/* Chapters (independent hover effect) */}
+                {[1, 2, 3].map((chapter) => (
+                  <div
+                    key={chapter}
+                    className="flex justify-between items-center text-sm mb-1"
+                  >
+                    <p className="text-gray-400 font-medium flex items-center hover:text-gray-700 hover:cursor-pointer">
+                      Chapter {chapter}
+                    </p>
+                    <p className="text-gray-600 font-medium flex items-center">
+                      {chapter * 3} hours ago
+                    </p>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
@@ -282,20 +306,44 @@ const Home = () => {
           </h1>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
             {comics.slice(0, 10).map((comic) => (
-              <div
-                key={comic._id}
-                className="flex flex-col hover:cursor-pointer hover:text-[#ff5722]"
-                onClick={() => (window.location.href = `/comic/${comic._id}`)}
-              >
-                <img
-                  src={comic.image}
-                  alt={comic.title}
-                  className="w-full h-auto object-cover"
-                  style={{ aspectRatio: "283 / 403" }}
-                />
-                <h2 className="px-4 text-lg text-center font-bold mt-2 min-h-[3rem] line-clamp-2 overflow-hidden">
-                  {truncateTitle(comic.title, 40)}
-                </h2>
+              <div key={comic._id} className="flex flex-col">
+                {/* Image & Title Wrapper */}
+                <div className="group">
+                  {/* Image */}
+                  <img
+                    src={comic.image}
+                    alt={comic.title}
+                    className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+                    onClick={() =>
+                      (window.location.href = `/comic/${comic._id}`)
+                    }
+                  />
+                  {/* Title */}
+                  <h2
+                    className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
+            hover:cursor-pointer group-hover:text-[#ff5722]"
+                    onClick={() =>
+                      (window.location.href = `/comic/${comic._id}`)
+                    }
+                  >
+                    {truncateTitle(comic.title, 40)}
+                  </h2>
+                </div>
+
+                {/* Chapters (independent hover effect) */}
+                {[1, 2, 3].map((chapter) => (
+                  <div
+                    key={chapter}
+                    className="flex justify-between items-center text-sm mb-1"
+                  >
+                    <p className="text-gray-400 font-medium flex items-center hover:text-gray-700 hover:cursor-pointer">
+                      Chapter {chapter}
+                    </p>
+                    <p className="text-gray-600 font-medium flex items-center">
+                      {chapter * 3} hours ago
+                    </p>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
@@ -326,19 +374,112 @@ const Home = () => {
           <h1 className="text-3xl font-bold py-4 mt-6 text-left">
             Latest Comments
           </h1>
-          <div className="p-4 rounded-lg shadow-md">
+          <div className="rounded-lg shadow-md">
             <ul className="space-y-4">
-              <li className="text-sm">
-                <span className="font-bold">User123:</span> "This manga is 🔥!"
-              </li>
-              <li className="text-sm">
-                <span className="font-bold">MangaLover:</span> "When’s the next
-                update?"
-              </li>
-              <li className="text-sm">
-                <span className="font-bold">Reader99:</span> "Plot twist was
-                insane!"
-              </li>
+              {[
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "User123",
+                  comment: "This manga is 🔥!",
+                  comicTitle: "Comic Title 1",
+                  timestamp: "2 hours ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "MangaLover",
+                  comment: "When’s the next update?",
+                  comicTitle: "Comic Title 2",
+                  timestamp: "5 hours ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "Reader99",
+                  comment:
+                    "Plot twist was insane! What an insane chapter! Good work trans, keep it up!",
+                  comicTitle:
+                    "Comic Title 3 Comic Title 3 Comic Title 3 Comic Title 3",
+                  timestamp: "1 day ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "Reader99",
+                  comment:
+                    "Plot twist was insane! What an insane chapter! Good work trans, keep it up!",
+                  comicTitle:
+                    "Comic Title 3 Comic Title 3 Comic Title 3 Comic Title 3",
+                  timestamp: "1 day ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "Reader99",
+                  comment:
+                    "Plot twist was insane! What an insane chapter! Good work trans, keep it up!",
+                  comicTitle:
+                    "Comic Title 3 Comic Title 3 Comic Title 3 Comic Title 3",
+                  timestamp: "1 day ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "Reader99",
+                  comment:
+                    "Plot twist was insane! What an insane chapter! Good work trans, keep it up!",
+                  comicTitle:
+                    "Comic Title 3 Comic Title 3 Comic Title 3 Comic Title 3",
+                  timestamp: "1 day ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "Reader99",
+                  comment:
+                    "Plot twist was insane! What an insane chapter! Good work trans, keep it up!",
+                  comicTitle:
+                    "Comic Title 3 Comic Title 3 Comic Title 3 Comic Title 3",
+                  timestamp: "1 day ago",
+                },
+                {
+                  avatar:
+                    "https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg",
+                  username: "Reader99",
+                  comment:
+                    "Plot twist was insane! What an insane chapter! Good work trans, keep it up!",
+                  comicTitle:
+                    "Comic Title 3 Comic Title 3 Comic Title 3 Comic Title 3",
+                  timestamp: "1 day ago",
+                },
+              ].map((comment, index) => (
+                <li key={index} className="flex flex-col">
+                  <h2 className="text-md font-bold text-[#ff5722] hover:text-[#8f2403] hover:cursor-pointer">
+                    {truncateTitle(comment.comicTitle, 40)}
+                  </h2>
+                  <div className="flex items-start space-x-4 py-2 border-b-2 border-gray-600">
+                    <img
+                      src={comment.avatar}
+                      alt={comment.username}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div className="flex-1 mb-2">
+                      <div className="flex justify-between items-start">
+                        <span className="font-bold text-white">
+                          {comment.username}
+                        </span>
+                        <span className="text-sm text-gray-400">
+                          {comment.timestamp}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-400 mt-1">
+                        {truncateTitle(comment.comment, 60)}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
