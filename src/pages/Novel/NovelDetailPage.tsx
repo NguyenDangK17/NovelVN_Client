@@ -98,25 +98,25 @@ const NovelDetail = () => {
 
                 {/* Info */}
                 <p>
-                  <span className="font-semibold text-[#ff5722] mr-2">
+                  <span className="font-semibold text-primary-500 mr-2">
                     Author:
                   </span>
                   Extra7
                 </p>
                 <p>
-                  <span className="font-semibold text-[#ff5722] mr-2">
+                  <span className="font-semibold text-primary-500 mr-2">
                     Artist:
                   </span>
                   Somebody
                 </p>
                 <p>
-                  <span className="font-semibold text-[#ff5722] mr-2">
+                  <span className="font-semibold text-primary-500 mr-2">
                     Release:
                   </span>
                   2024
                 </p>
                 <p className="mb-6">
-                  <span className="font-semibold text-[#ff5722] mr-2">
+                  <span className="font-semibold text-primary-500 mr-2">
                     Status:
                   </span>
                   Ongoing
@@ -127,7 +127,7 @@ const NovelDetail = () => {
                   <button className="flex w-full md:w-[240px] items-center justify-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 rounded-md">
                     <FaHeart /> Add to Favorite
                   </button>
-                  <button className="flex w-full md:w-[240px] items-center justify-center gap-2 px-4 py-2 bg-[#ff5722] hover:bg-[#d84315] rounded-md">
+                  <button className="flex w-full md:w-[240px] items-center justify-center gap-2 px-4 py-2 bg-primary-500 hover:bg-[#d84315] rounded-md">
                     <FaBookOpen /> Start Reading
                   </button>
                 </div>
@@ -176,7 +176,7 @@ const NovelDetail = () => {
                 <p className="text-md text-gray-500 font-bold">Rating</p>
                 <div className="flex items-center justify-center">
                   <FaStar color="#ff5722" size={24} />
-                  <p className="text-2xl font-bold text-[#ff5722] ml-2">
+                  <p className="text-2xl font-bold text-primary-500 ml-2">
                     10,000
                   </p>
                 </div>

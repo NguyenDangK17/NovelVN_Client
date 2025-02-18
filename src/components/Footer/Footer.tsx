@@ -6,8 +6,8 @@ const Footer = () => {
       <div className="flex lg:flex-row flex-col items-center justify-between px-10 py-4 w-[75%]">
         <div className="flex flex-col lg:gap-8 lg:items-start items-center lg:p-0 pb-8">
           <img
-            className="lg:h-40 h-28"
-            src="https://asuracomic.net/images/logo.webp"
+            className="lg:h-30 h-28"
+            src="https://mangadex.org/img/brand/mangadex-logo.svg"
             alt=""
           />
           <div className="flex flex-col gap-4">
@@ -61,7 +61,9 @@ const Footer = () => {
         </div>
         <div className="flex flex-col lg:flex-row md:flex-row lg:gap-32 gap-8">
           <div className="list-none text-lg gap-2 flex flex-col">
-            <h4 className="font-bold mb-4 text-2xl text-[#ff5722]">Explore</h4>
+            <h4 className="font-bold mb-4 text-2xl text-primary-500">
+              Explore
+            </h4>
             <Link className="text-white" to={""}>
               <li className="hover:text-gray-300">Latest Updates</li>
             </Link>
@@ -76,7 +78,9 @@ const Footer = () => {
             </Link>
           </div>
           <div className="list-none text-lg gap-2 flex flex-col ">
-            <h4 className="font-bold mb-4 text-2xl text-[#ff5722]">Support</h4>
+            <h4 className="font-bold mb-4 text-2xl text-primary-500">
+              Support
+            </h4>
             <Link className="text-white" to={""}>
               <li className="hover:text-gray-300">Privacy Policy</li>
             </Link>

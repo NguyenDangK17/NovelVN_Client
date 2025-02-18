@@ -8,6 +8,8 @@ import MangaListPage from "./pages/Manga/MangaListPage.js";
 import NovelListPage from "./pages/Novel/NovelListPage.js";
 import NovelChapterPage from "./pages/Novel/NovelChapterPage.js";
 import NotFoundPage from "./pages/404NotFoundPage.js";
+import LoginPage from "./pages/Authentication/LoginPage.js";
+import SignupPage from "./pages/Authentication/SignupPage.js";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/novel" element={<NovelListPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </>
   );

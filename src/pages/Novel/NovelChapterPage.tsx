@@ -45,17 +45,17 @@ const NovelChapterPage: React.FC = () => {
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-center gap-4 mt-12">
-        <button className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      <div className="flex justify-center gap-4 mt-12 w-full max-w-6xl">
+        <button className="px-5 py-2 bg-primary-500 text-white rounded hover:bg-[#e64a19]">
           Previous
         </button>
         <button
-          className="px-5 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          className="px-5 py-2 bg-[#1a1a1a] text-white border border-primary-500 rounded hover:bg-[#333]"
           onClick={() => window.location.replace(`/comic/${id}`)}
         >
           Home
         </button>
-        <button className="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        <button className="px-5 py-2 bg-primary-500 text-white rounded hover:bg-[#e64a19]">
           Next
         </button>
       </div>

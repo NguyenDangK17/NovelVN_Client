@@ -104,7 +104,7 @@ const CommentSection: React.FC = () => {
         )} */}
 
         {/* Comment block */}
-        <div className="flex items-start space-x-4 ml-6">
+        <div className="flex items-start space-x-4">
           {/* Avatar */}
           <img
             src={comment.avatar}
@@ -184,7 +184,7 @@ const CommentSection: React.FC = () => {
   };
 
   return (
-    <div className="mt-12 w-full max-w-6xl mx-auto bg-[#2c2c2c] p-6 rounded-lg">
+    <div className="mt-12 w-full max-w-6xl mx-auto bg-[#252728] p-6 rounded-lg">
       {/* New Comment Input */}
       <div className="mb-6 rounded-lg text-right bg-[#1a1a1a]">
         <Editor
@@ -205,7 +205,7 @@ const CommentSection: React.FC = () => {
           onEditorChange={(content) => setNewComment(content)}
         />
         <button
-          className="m-3 p-2 bg-[#ff5722] text-white font-semibold rounded-lg hover:bg-gray-700 transition"
+          className="m-3 p-2 bg-primary-500 text-white font-semibold rounded-lg hover:bg-gray-700 transition"
           onClick={() => handleAddComment(null)}
         >
           Submit

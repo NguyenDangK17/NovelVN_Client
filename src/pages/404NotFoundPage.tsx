@@ -9,7 +9,7 @@ const NotFoundPage: React.FC = () => {
       </p>
       <button
         onClick={() => (window.location.href = "/")}
-        className="mt-6 px-6 py-3 text-lg font-medium text-white bg-[#ff5722] rounded-lg hover:bg-gray-900 transition-all"
+        className="mt-6 px-6 py-3 text-lg font-medium text-white bg-primary-500 rounded-lg hover:bg-gray-900 transition-all"
       >
         Go Home
       </button>

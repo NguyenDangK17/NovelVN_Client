@@ -143,7 +143,7 @@ const Home = () => {
                   className="w-full max-w-[240px] h-auto object-cover mx-auto"
                   style={{ aspectRatio: "283 / 403" }}
                 />
-                <h2 className="text-lg text-center font-bold mt-2 mx-4 text-white group-hover:text-[#ff5722]">
+                <h2 className="text-lg text-center font-bold mt-2 mx-4 text-white group-hover:text-primary-500">
                   {truncateTitle(comic.title, 40)}
                 </h2>
               </div>
@@ -159,7 +159,7 @@ const Home = () => {
                   className="p-4 rounded-lg hover:bg-[#3a3a3a] transition cursor-pointer"
                   onClick={() => alert(`Opening notice: ${notice.title}`)}
                 >
-                  <h2 className="text-lg text-[#ff5722] font-bold">
+                  <h2 className="text-lg text-primary-500 font-bold">
                     {notice.title}
                   </h2>
                   <p className="text-sm text-gray-400">
@@ -184,7 +184,7 @@ const Home = () => {
                 key={tab}
                 className={`flex-1 py-2 text-lg font-semibold transition-colors text-center ${
                   activeTab === tab
-                    ? "border-b-2 border-[#ff5722] text-[#ff5722]"
+                    ? "border-b-2 border-primary-500 text-primary-500"
                     : "text-gray-600"
                 }`}
                 onClick={() =>
@@ -201,7 +201,7 @@ const Home = () => {
             {getFilteredComics().map((comic, index) => (
               <li
                 key={comic._id}
-                className="flex items-center hover:text-[#ff5722] p-2 rounded-lg cursor-pointer group"
+                className="flex items-center hover:text-primary-500 p-2 rounded-lg cursor-pointer group"
                 onClick={() => (window.location.href = `/comic/${comic._id}`)}
               >
                 <span
@@ -225,7 +225,7 @@ const Home = () => {
                 />
                 <div className="ml-4">
                   <h2
-                    className={`text-lg font-bold group-hover:text-[#ff5722] ${
+                    className={`text-lg font-bold group-hover:text-primary-500 ${
                       index === 0
                         ? "text-yellow-500"
                         : index === 1
@@ -274,7 +274,7 @@ const Home = () => {
                   {/* Title */}
                   <h2
                     className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
-            hover:cursor-pointer group-hover:text-[#ff5722]"
+            hover:cursor-pointer group-hover:text-primary-500"
                     onClick={() =>
                       (window.location.href = `/comic/${comic._id}`)
                     }
@@ -321,7 +321,7 @@ const Home = () => {
                   {/* Title */}
                   <h2
                     className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
-            hover:cursor-pointer group-hover:text-[#ff5722]"
+            hover:cursor-pointer group-hover:text-primary-500"
                     onClick={() =>
                       (window.location.href = `/comic/${comic._id}`)
                     }
@@ -360,7 +360,7 @@ const Home = () => {
                   className="py-2 rounded-lg transition cursor-pointer"
                   onClick={() => alert(`Opening forum: ${forum.title}`)}
                 >
-                  <h2 className="text-lg text-[#ff5722] font-bold hover:text-[#8f2403]">
+                  <h2 className="text-lg text-primary-500 font-bold hover:text-[#8f2403]">
                     {forum.title}
                   </h2>
                   <p className="text-sm text-gray-400">
@@ -455,7 +455,7 @@ const Home = () => {
                 },
               ].map((comment, index) => (
                 <li key={index} className="flex flex-col">
-                  <h2 className="text-md font-bold text-[#ff5722] hover:text-[#8f2403] hover:cursor-pointer">
+                  <h2 className="text-md font-bold text-primary-500 hover:text-[#8f2403] hover:cursor-pointer">
                     {truncateTitle(comment.comicTitle, 40)}
                   </h2>
                   <div className="flex items-start space-x-4 py-2 border-b-2 border-gray-600">

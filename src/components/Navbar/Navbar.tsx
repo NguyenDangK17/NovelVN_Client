@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
       className={`fixed w-full transition-all duration-300 ease-in-out z-[1000] ${
         isTop
           ? "bg-transparent border-b-2 border-transparent"
-          : "bg-[#1f1f1f] border-b-2 border-[#ff5722]"
+          : "bg-[#1f1f1f] border-b-2 border-primary-500"
       }`}
     >
       <div className="border-gray-200">
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
             {/* Menu Button */}
             <button
               type="button"
-              className="lg:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#ff5722] rounded-lg text-sm p-2.5"
+              className="lg:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-sm p-2.5"
               onClick={() => setMenuOpen(!isMenuOpen)}
             >
               <svg
@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
             {/* Mobile Search Button */}
             <button
               type="button"
-              className="lg:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#ff5722] rounded-lg text-sm p-2.5 me-1"
+              className="lg:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-sm p-2.5 me-1"
               onClick={() => setSearchOpen(!isSearchOpen)}
             >
               <svg
@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
             {/* User Dropdown */}
             <button
               type="button"
-              className="flex text-sm bg-white rounded-full lg:me-0 focus:ring-2 focus:ring-[#ff5722]"
+              className="flex text-sm bg-white rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
               id="user-menu-button"
               aria-expanded={isDropdownOpen}
               onClick={() => setDropdownOpen(!isDropdownOpen)}
@@ -178,7 +178,7 @@ const Navbar: React.FC = () => {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/login"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Sign out
@@ -202,8 +202,8 @@ const Navbar: React.FC = () => {
                   href="/"
                   className={`block py-2 px-3 rounded-sm lg:p-0 hover:cursor-pointer ${
                     location.pathname === "/"
-                      ? "text-[#ff5722]"
-                      : "text-white hover:text-[#ff5722]"
+                      ? "text-primary-500"
+                      : "text-white hover:text-primary-500"
                   }`}
                 >
                   Home
@@ -214,8 +214,8 @@ const Navbar: React.FC = () => {
                   href="/browse"
                   className={`block py-2 px-3 rounded-sm lg:p-0 hover:cursor-pointer ${
                     location.pathname === "/browse"
-                      ? "text-[#ff5722]"
-                      : "text-white hover:text-[#ff5722]"
+                      ? "text-primary-500"
+                      : "text-white hover:text-primary-500"
                   }`}
                 >
                   Browse
@@ -226,8 +226,8 @@ const Navbar: React.FC = () => {
                   href="/forums"
                   className={`block py-2 px-3 rounded-sm lg:p-0 hover:cursor-pointer ${
                     location.pathname === "/forums"
-                      ? "text-[#ff5722]"
-                      : "text-white hover:text-[#ff5722]"
+                      ? "text-primary-500"
+                      : "text-white hover:text-primary-500"
                   }`}
                 >
                   Forums
@@ -238,8 +238,8 @@ const Navbar: React.FC = () => {
                   href="/ranking"
                   className={`block py-2 px-3 rounded-sm lg:p-0 hover:cursor-pointer ${
                     location.pathname === "/ranking"
-                      ? "text-[#ff5722]"
-                      : "text-white hover:text-[#ff5722]"
+                      ? "text-primary-500"
+                      : "text-white hover:text-primary-500"
                   }`}
                 >
                   Ranking
@@ -250,8 +250,8 @@ const Navbar: React.FC = () => {
                   href="/about"
                   className={`block py-2 px-3 rounded-sm lg:p-0 hover:cursor-pointer ${
                     location.pathname === "/about"
-                      ? "text-[#ff5722]"
-                      : "text-white hover:text-[#ff5722]"
+                      ? "text-primary-500"
+                      : "text-white hover:text-primary-500"
                   }`}
                 >
                   About Us
@@ -286,7 +286,7 @@ const Navbar: React.FC = () => {
           </div>
           <input
             type="text"
-            className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#ff5722] focus:border-[#ff5722]"
+            className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
             placeholder="Search..."
           />
         </div>
