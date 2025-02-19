@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const SignupPage: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          username,
+          email,
+          password,
+        }
+      );
+      if (response.status === 201) {
+        window.location.replace("/login");
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      console.log(username, email, password);
+
+      alert("Signup failed. Please try again.");
+    }
+  };
+
   return (
     <section
       className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
@@ -27,7 +59,7 @@ const SignupPage: React.FC = () => {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl text-center">
             Create your account
           </h1>
-          <form className="space-y-4 md:space-y-6" action="#">
+          <form className="space-y-4 md:space-y-6" onSubmit={handleSignup}>
             <div>
               <label
                 htmlFor="username"
@@ -40,6 +72,8 @@ const SignupPage: React.FC = () => {
                 name="username"
                 id="username"
                 className="bg-[#3d414a] text-white rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </div>
@@ -55,6 +89,8 @@ const SignupPage: React.FC = () => {
                 name="email"
                 id="email"
                 className="bg-[#3d414a] text-white rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -70,6 +106,8 @@ const SignupPage: React.FC = () => {
                 name="password"
                 id="password"
                 className="bg-[#3d414a] text-white rounded-lg focus:border-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -85,6 +123,8 @@ const SignupPage: React.FC = () => {
                 name="confirm-password"
                 id="confirm-password"
                 className="bg-[#3d414a] text-white rounded-lg focus:border-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>

@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 const LoginPage: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        window.location.replace("/");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("Login failed. Please try again.");
+    }
+  };
+
   return (
     <section
       className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
@@ -27,7 +51,7 @@ const LoginPage: React.FC = () => {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl text-center">
             Sign in to your account
           </h1>
-          <form className="space-y-4 md:space-y-6" action="#">
+          <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
             <div>
               <label
                 htmlFor="email"
@@ -40,6 +64,8 @@ const LoginPage: React.FC = () => {
                 name="email"
                 id="email"
                 className="bg-[#3d414a] text-white rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -55,6 +81,8 @@ const LoginPage: React.FC = () => {
                 name="password"
                 id="password"
                 className="bg-[#3d414a] text-white rounded-lg focus:border-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>

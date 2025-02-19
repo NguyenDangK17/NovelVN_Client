@@ -4,6 +4,7 @@ import { Novel } from "../types/novel";
 import CarouselComponent from "../components/Home/Carousel";
 import { Carousel } from "antd";
 import { FaEye } from "react-icons/fa";
+import { useUser } from "../context/UserContext";
 
 // Dummy Notice Board Data
 const notices = [
@@ -78,6 +79,9 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "all time">(
     "weekly"
   );
+
+  const { user } = useUser();
+  console.log(user);
 
   useEffect(() => {
     axios
