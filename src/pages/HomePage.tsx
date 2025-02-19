@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Novel } from "../types";
+import { Novel } from "../types/novel";
 import CarouselComponent from "../components/Home/Carousel";
 import { Carousel } from "antd";
 import { FaEye } from "react-icons/fa";
@@ -81,7 +81,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/comics")
+      .get("http://localhost:5000/api/novels")
       .then((res) => setComics(res.data));
   }, []);
 
@@ -92,9 +92,9 @@ const Home = () => {
   };
 
   const getFilteredComics = () => {
-    if (activeTab === "weekly") return comics.slice(0, 6);
-    if (activeTab === "monthly") return comics.slice(5, 11);
-    return comics.slice(3, 9);
+    if (activeTab === "weekly") return comics.slice(0, 7);
+    if (activeTab === "monthly") return comics.slice(4, 11);
+    return comics.slice(2, 9);
   };
 
   return (
@@ -201,7 +201,7 @@ const Home = () => {
             {getFilteredComics().map((comic, index) => (
               <li
                 key={comic._id}
-                className="flex items-center hover:text-primary-500 p-2 rounded-lg cursor-pointer group"
+                className="flex items-center hover:text-primary-500 rounded-lg cursor-pointer group"
                 onClick={() => (window.location.href = `/comic/${comic._id}`)}
               >
                 <span
@@ -254,9 +254,15 @@ const Home = () => {
 
         {/* Novels & Manga Section - 9/12 width */}
         <div className="col-span-12 lg:col-span-9">
-          <h1 className="text-3xl font-bold mb-6 p-4 text-left">
-            Self-Published
-          </h1>
+          <div className="flex justify-between items-center mb-6 p-4">
+            <h1 className="text-3xl font-bold text-left">Self-Published</h1>
+            <span
+              className="text-lg text-primary-500 hover:text-primary-700 cursor-pointer"
+              onClick={() => (window.location.href = "/self-published")}
+            >
+              View All
+            </span>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
             {comics.slice(0, 5).map((comic) => (
               <div key={comic._id} className="flex flex-col">
@@ -301,9 +307,15 @@ const Home = () => {
             ))}
           </div>
 
-          <h1 className="text-3xl font-bold my-6 p-4 text-left">
-            Latest Novel Updates
-          </h1>
+          <div className="flex justify-between items-center mt-12 mb-6 p-4">
+            <h1 className="text-3xl font-bold text-left">Latest Updates</h1>
+            <span
+              className="text-lg text-primary-500 hover:text-primary-700 cursor-pointer"
+              onClick={() => (window.location.href = "/manga")}
+            >
+              View All
+            </span>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
             {comics.slice(0, 10).map((comic) => (
               <div key={comic._id} className="flex flex-col">

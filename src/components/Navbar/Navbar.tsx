@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
               <img
                 src="https://mangadex.org/img/brand/mangadex-logo.svg"
                 className="h-8"
-                alt="Flowbite Logo"
+                alt="NovelVN Logo"
               />
               <span className="self-center text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-white">
                 NovelVN

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Novel } from "../../types";
+import { Novel } from "../../types/novel";
 import CommentSection from "../../components/Comment/CommentSection";
 
 const NovelChapterPage: React.FC = () => {
@@ -10,12 +10,12 @@ const NovelChapterPage: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/comics/${id}`)
+      .get(`http://localhost:5000/api/novels/${id}`)
       .then((res) => setNovel(res.data));
 
     // Update view count after 60 seconds
     const timer = setTimeout(() => {
-      axios.post(`http://localhost:5000/comics/${id}/view`);
+      axios.post(`http://localhost:5000/api/novels/${id}/view`);
     }, 60000);
 
     return () => clearTimeout(timer);

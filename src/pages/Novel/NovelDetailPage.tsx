@@ -11,7 +11,7 @@ import {
   FaShare,
 } from "react-icons/fa";
 import axios from "axios";
-import { Novel } from "../../types";
+import { Novel } from "../../types/novel";
 
 const genres = [
   "Action",
@@ -29,12 +29,12 @@ const NovelDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/comics/${id}`)
+      .get(`http://localhost:5000/api/novels/${id}`)
       .then((res) => setNovel(res.data));
 
     // Update view count after 60 seconds
     const timer = setTimeout(() => {
-      axios.post(`http://localhost:5000/comics/${id}/view`);
+      axios.post(`http://localhost:5000/api/novels/${id}/view`);
     }, 60000);
 
     return () => clearTimeout(timer);
