@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useUser } from "../../context/UserContext";
 
 const Navbar: React.FC = () => {
+  const { user, setUser } = useUser();
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
@@ -67,7 +74,7 @@ const Navbar: React.FC = () => {
                 className="h-8"
                 alt="NovelVN Logo"
               />
-              <span className="self-center text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-white">
+              <span className="self-center text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold whitespace-nowrap text-white hidden sm:block">
                 NovelVN
               </span>
             </a>
@@ -99,7 +106,7 @@ const Navbar: React.FC = () => {
             </button>
 
             {/* Desktop Search */}
-            <div className="relative hidden lg:block w-[300px]">
+            <div className="relative hidden lg:block w-[250px]">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg
                   className="w-4 h-4 text-gray-500"
@@ -125,67 +132,87 @@ const Navbar: React.FC = () => {
               />
             </div>
 
-            {/* User Dropdown */}
-            <button
-              type="button"
-              className="flex text-sm bg-white rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
-              id="user-menu-button"
-              aria-expanded={isDropdownOpen}
-              onClick={() => setDropdownOpen(!isDropdownOpen)}
-            >
-              <img
-                className="w-10 h-10 rounded-full"
-                src="https://i.pinimg.com/736x/c4/14/27/c4142714e3d7023b30965b445bb5fb6d.jpg"
-                alt="user photo"
-              />
-            </button>
+            {user ? (
+              <>
+                {/* User Dropdown */}
+                <button
+                  type="button"
+                  className="flex text-sm bg-white rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
+                  id="user-menu-button"
+                  aria-expanded={isDropdownOpen}
+                  onClick={() => setDropdownOpen(!isDropdownOpen)}
+                >
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={user.avatar}
+                    alt="user photo"
+                  />
+                </button>
 
-            {/* Dropdown Menu */}
-            {isDropdownOpen && (
-              <div className="absolute top-10 right-5 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
-                <div className="px-4 py-3">
-                  <span className="block text-sm text-gray-900">
-                    Bonnie Green
-                  </span>
-                  <span className="block text-sm text-gray-500 truncate">
-                    name@flowbite.com
-                  </span>
-                </div>
-                <ul className="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/login"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      Sign out
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <div className="absolute top-10 right-5 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
+                    <div className="px-4 py-3">
+                      <span className="block text-sm text-gray-900">
+                        {user.username}
+                      </span>
+                      <span className="block text-sm text-gray-500 truncate">
+                        {user.email}
+                      </span>
+                    </div>
+                    <ul className="py-2" aria-labelledby="user-menu-button">
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Dashboard
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Settings
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Earnings
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          // href="/login"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          onClick={handleLogout}
+                        >
+                          Sign out
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  className="text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg p-2.5"
+                >
+                  Login
+                </a>
+                <a
+                  href="/signup"
+                  className="text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg p-2.5"
+                >
+                  Signup
+                </a>
+              </>
             )}
           </div>
 
@@ -196,7 +223,7 @@ const Navbar: React.FC = () => {
             } items-center justify-between w-full lg:flex lg:w-auto lg:order-1`}
             id="navbar-user"
           >
-            <ul className="flex flex-col font-semibold text-md p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-transparent gap-4">
+            <ul className="flex flex-col font-semibold text-md p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 xl:space-x-8 lg:space-x-4 lg:flex-row lg:mt-0 lg:border-0 lg:bg-transparent gap-4">
               <li>
                 <a
                   href="/"

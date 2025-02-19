@@ -138,14 +138,13 @@ const Home = () => {
             {comics.slice(0, 8).map((comic) => (
               <div
                 key={comic._id}
-                className="flex flex-col items-center justify-center hover:cursor-pointer group"
+                className="flex flex-col items-center justify-center hover:cursor-pointer group p-4"
                 onClick={() => (window.location.href = `/comic/${comic._id}`)}
               >
                 <img
                   src={comic.image}
                   alt={comic.title}
-                  className="w-full max-w-[240px] h-auto object-cover mx-auto"
-                  style={{ aspectRatio: "283 / 403" }}
+                  className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
                 />
                 <h2 className="text-lg text-center font-bold mt-2 mx-4 text-white group-hover:text-primary-500">
                   {truncateTitle(comic.title, 40)}
@@ -267,7 +266,7 @@ const Home = () => {
               View All
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 px-2">
             {comics.slice(0, 5).map((comic) => (
               <div key={comic._id} className="flex flex-col">
                 {/* Image & Title Wrapper */}
@@ -284,7 +283,7 @@ const Home = () => {
                   {/* Title */}
                   <h2
                     className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
-            hover:cursor-pointer group-hover:text-primary-500"
+          hover:cursor-pointer group-hover:text-primary-500"
                     onClick={() =>
                       (window.location.href = `/comic/${comic._id}`)
                     }
@@ -320,7 +319,7 @@ const Home = () => {
               View All
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 px-2">
             {comics.slice(0, 10).map((comic) => (
               <div key={comic._id} className="flex flex-col">
                 {/* Image & Title Wrapper */}
@@ -337,7 +336,7 @@ const Home = () => {
                   {/* Title */}
                   <h2
                     className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
-            hover:cursor-pointer group-hover:text-primary-500"
+          hover:cursor-pointer group-hover:text-primary-500"
                     onClick={() =>
                       (window.location.href = `/comic/${comic._id}`)
                     }
