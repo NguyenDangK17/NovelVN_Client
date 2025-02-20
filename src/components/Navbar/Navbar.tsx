@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/UserContext";
 
 const Navbar: React.FC = () => {
   const { user, setUser } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    navigate("/");
   };
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);

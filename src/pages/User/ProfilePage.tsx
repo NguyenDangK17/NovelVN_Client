@@ -3,13 +3,45 @@ import { useAuth } from "../../context/UserContext";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Novel } from "../../types/novel";
+import { FaEnvelope, FaUser, FaLock } from "react-icons/fa";
+import { updateUser } from "../../utils/userUtils";
 
 const ProfileHeader: React.FC = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
+
+  const handleAvatarChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const formData = new FormData();
+      formData.append("avatar", file);
+      formData.append("userId", user._id);
+
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/upload-avatar",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        const updatedUser = { ...user, avatar: response.data.avatar };
+        updateUser(updatedUser, setUser);
+      } catch (error) {
+        console.error("Error updating avatar:", error);
+      }
+    }
+  };
 
   return (
     <div className="relative h-[300px] md:h-[450px] bg-[#2c2c2c]">
@@ -22,11 +54,17 @@ const ProfileHeader: React.FC = () => {
       />
       <div className="absolute bottom-0 left-0 w-full">
         <div className="max-w-7xl mx-auto flex items-end p-6">
-          <div className="w-32 md:w-40 h-auto aspect-[1/1] rounded-full overflow-hidden">
+          <div className="w-32 md:w-40 h-auto aspect-[1/1] rounded-full overflow-hidden relative">
             <img
               src={user?.avatar}
               alt="Profile"
               className="w-full h-full object-cover"
+            />
+            <input
+              type="file"
+              accept="image/*"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={handleAvatarChange}
             />
           </div>
           <div className="ml-4">
@@ -52,8 +90,6 @@ const ProfileInfo: React.FC = () => {
     </div>
   );
 };
-
-import { FaEnvelope, FaUser, FaLock } from "react-icons/fa"; // Import icons
 
 const ProfileInformation: React.FC = () => {
   const { user } = useAuth(); // Get the user object from useAuth
