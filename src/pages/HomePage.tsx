@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Novel } from "../types/novel";
 import CarouselComponent from "../components/Home/Carousel";
 import { Carousel } from "antd";
 import { FaEye } from "react-icons/fa";
-import { useUser } from "../context/UserContext";
+import { Link } from "react-router-dom";
 
 // Dummy Notice Board Data
 const notices = [
@@ -80,26 +80,56 @@ const Home = () => {
     "weekly"
   );
 
-  const { user } = useUser();
-  console.log(user);
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/novels")
       .then((res) => setComics(res.data));
   }, []);
 
-  const truncateTitle = (title: string, maxLength: number) => {
+  const truncateTitle = useCallback((title: string, maxLength: number) => {
     if (title.length <= maxLength) return title;
     const truncated = title.substring(0, maxLength);
     return truncated.substring(0, truncated.lastIndexOf(" ")) + "...";
-  };
+  }, []);
 
-  const getFilteredComics = () => {
+  const getFilteredComics = useCallback(() => {
     if (activeTab === "weekly") return comics.slice(0, 7);
     if (activeTab === "monthly") return comics.slice(4, 11);
     return comics.slice(2, 9);
-  };
+  }, [activeTab, comics]);
+
+  const ComicCard = ({ comic }: { comic: Novel }) => (
+    <div className="flex flex-col">
+      <div className="group">
+        <Link to={`/comic/${comic._id}`}>
+          <img
+            src={comic.image}
+            alt={comic.title}
+            className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+          />
+          <h2
+            className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
+            hover:cursor-pointer group-hover:text-primary-500"
+          >
+            {truncateTitle(comic.title, 40)}
+          </h2>
+        </Link>
+      </div>
+      {[1, 2, 3].map((chapter) => (
+        <div
+          key={chapter}
+          className="flex justify-between items-center text-sm mb-1"
+        >
+          <p className="text-gray-400 font-medium flex items-center hover:text-gray-700 hover:cursor-pointer">
+            Chapter {chapter}
+          </p>
+          <p className="text-gray-600 font-medium flex items-center">
+            {chapter * 3} hours ago
+          </p>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="w-full pb-16 overflow-x-hidden">
@@ -139,21 +169,22 @@ const Home = () => {
               <div
                 key={comic._id}
                 className="flex flex-col items-center justify-center hover:cursor-pointer group p-4"
-                onClick={() => (window.location.href = `/comic/${comic._id}`)}
               >
-                <img
-                  src={comic.image}
-                  alt={comic.title}
-                  className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
-                />
-                <h2 className="text-lg text-center font-bold mt-2 mx-4 text-white group-hover:text-primary-500">
-                  {truncateTitle(comic.title, 40)}
-                </h2>
+                <Link to={`/comic/${comic._id}`}>
+                  <img
+                    src={comic.image}
+                    alt={comic.title}
+                    className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+                  />
+                  <h2 className="text-lg text-center font-bold mt-2 mx-4 text-white group-hover:text-primary-500">
+                    {truncateTitle(comic.title, 40)}
+                  </h2>
+                </Link>
               </div>
             ))}
           </Carousel>
 
-          <h1 className="text-3xl font-bold p-4 text-left">Announcements</h1>
+          <h1 className="text-3xl font-bold p-4 text-left">Notice Board</h1>
           <div className="px-4">
             <ul className="space-y-2">
               {notices.map((notice) => (
@@ -185,7 +216,7 @@ const Home = () => {
             {["weekly", "monthly", "all time"].map((tab) => (
               <button
                 key={tab}
-                className={`flex-1 py-2 text-lg font-semibold transition-colors text-center ${
+                className={`flex-1 py-2 text-md font-semibold transition-colors text-center ${
                   activeTab === tab
                     ? "border-b-2 border-primary-500 text-primary-500"
                     : "text-gray-600"
@@ -205,30 +236,10 @@ const Home = () => {
               <li
                 key={comic._id}
                 className="flex items-center hover:text-primary-500 rounded-lg cursor-pointer group"
-                onClick={() => (window.location.href = `/comic/${comic._id}`)}
               >
-                <span
-                  className={`text-2xl font-bold mr-4 ${
-                    index === 0
-                      ? "text-yellow-500"
-                      : index === 1
-                      ? "text-[#b5b7bb]"
-                      : index === 2
-                      ? "text-[#cd7f32]"
-                      : "text-white"
-                  }`}
-                >
-                  {index + 1}
-                </span>
-                <img
-                  src={comic.image}
-                  alt={comic.title}
-                  className="w-20 h-auto object-cover"
-                  style={{ aspectRatio: "283 / 403" }}
-                />
-                <div className="ml-4">
-                  <h2
-                    className={`text-lg font-bold group-hover:text-primary-500 ${
+                <Link to={`/comic/${comic._id}`} className="flex items-center">
+                  <span
+                    className={`text-2xl font-bold mr-4 ${
                       index === 0
                         ? "text-yellow-500"
                         : index === 1
@@ -238,128 +249,73 @@ const Home = () => {
                         : "text-white"
                     }`}
                   >
-                    {truncateTitle(comic.title, 30)}
-                  </h2>
-                  <div className="flex items-center">
-                    <span className="text-[#a1a1aa]">
-                      <FaEye />
-                    </span>
-                    <span className="ml-1 text-[#a1a1aa]">100,000</span>
+                    {index + 1}
+                  </span>
+                  <img
+                    src={comic.image}
+                    alt={comic.title}
+                    className="w-20 h-auto object-cover"
+                    style={{ aspectRatio: "283 / 403" }}
+                  />
+                  <div className="ml-4">
+                    <h2
+                      className={`text-md xl:text-xl font-bold group-hover:text-primary-500 ${
+                        index === 0
+                          ? "text-yellow-500"
+                          : index === 1
+                          ? "text-[#b5b7bb]"
+                          : index === 2
+                          ? "text-[#cd7f32]"
+                          : "text-white"
+                      }`}
+                    >
+                      {truncateTitle(comic.title, 30)}
+                    </h2>
+                    <div className="flex items-center">
+                      <span className="text-[#a1a1aa]">
+                        <FaEye />
+                      </span>
+                      <span className="ml-1 text-[#a1a1aa]">100,000</span>
+                    </div>
+                    <p className="text-sm text-gray-600 lg:hidden xl:block">
+                      {truncateTitle(comic.description, 50)}
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600">
-                    {truncateTitle(comic.description, 50)}
-                  </p>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Novels & Manga Section - 9/12 width */}
-        <div className="col-span-12 lg:col-span-9">
-          <div className="flex justify-between items-center mb-6 p-4">
+        <div className="col-span-12 lg:col-span-9 px-4">
+          <div className="flex justify-between items-center mb-6 py-4">
             <h1 className="text-3xl font-bold text-left">Self-Published</h1>
-            <span
+            <Link
+              to="/self-published"
               className="text-lg text-primary-500 hover:text-primary-700 cursor-pointer"
-              onClick={() => (window.location.href = "/self-published")}
             >
               View All
-            </span>
+            </Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 px-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
             {comics.slice(0, 5).map((comic) => (
-              <div key={comic._id} className="flex flex-col">
-                {/* Image & Title Wrapper */}
-                <div className="group">
-                  {/* Image */}
-                  <img
-                    src={comic.image}
-                    alt={comic.title}
-                    className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
-                    onClick={() =>
-                      (window.location.href = `/comic/${comic._id}`)
-                    }
-                  />
-                  {/* Title */}
-                  <h2
-                    className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
-          hover:cursor-pointer group-hover:text-primary-500"
-                    onClick={() =>
-                      (window.location.href = `/comic/${comic._id}`)
-                    }
-                  >
-                    {truncateTitle(comic.title, 40)}
-                  </h2>
-                </div>
-
-                {/* Chapters (independent hover effect) */}
-                {[1, 2, 3].map((chapter) => (
-                  <div
-                    key={chapter}
-                    className="flex justify-between items-center text-sm mb-1"
-                  >
-                    <p className="text-gray-400 font-medium flex items-center hover:text-gray-700 hover:cursor-pointer">
-                      Chapter {chapter}
-                    </p>
-                    <p className="text-gray-600 font-medium flex items-center">
-                      {chapter * 3} hours ago
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <ComicCard key={comic._id} comic={comic} />
             ))}
           </div>
 
-          <div className="flex justify-between items-center mt-12 mb-6 p-4">
+          <div className="flex justify-between items-center mt-12 mb-6 py-4">
             <h1 className="text-3xl font-bold text-left">Latest Updates</h1>
-            <span
+            <Link
+              to="/manga"
               className="text-lg text-primary-500 hover:text-primary-700 cursor-pointer"
-              onClick={() => (window.location.href = "/manga")}
             >
               View All
-            </span>
+            </Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 px-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
             {comics.slice(0, 10).map((comic) => (
-              <div key={comic._id} className="flex flex-col">
-                {/* Image & Title Wrapper */}
-                <div className="group">
-                  {/* Image */}
-                  <img
-                    src={comic.image}
-                    alt={comic.title}
-                    className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
-                    onClick={() =>
-                      (window.location.href = `/comic/${comic._id}`)
-                    }
-                  />
-                  {/* Title */}
-                  <h2
-                    className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
-          hover:cursor-pointer group-hover:text-primary-500"
-                    onClick={() =>
-                      (window.location.href = `/comic/${comic._id}`)
-                    }
-                  >
-                    {truncateTitle(comic.title, 40)}
-                  </h2>
-                </div>
-
-                {/* Chapters (independent hover effect) */}
-                {[1, 2, 3].map((chapter) => (
-                  <div
-                    key={chapter}
-                    className="flex justify-between items-center text-sm mb-1"
-                  >
-                    <p className="text-gray-400 font-medium flex items-center hover:text-gray-700 hover:cursor-pointer">
-                      Chapter {chapter}
-                    </p>
-                    <p className="text-gray-600 font-medium flex items-center">
-                      {chapter * 3} hours ago
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <ComicCard key={comic._id} comic={comic} />
             ))}
           </div>
         </div>

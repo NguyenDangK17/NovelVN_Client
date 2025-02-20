@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useUser } from "../../context/UserContext";
+import { useLocation } from "react-router-dom";
+import { useAuth } from "../../context/UserContext";
 
 const Navbar: React.FC = () => {
-  const { user, setUser } = useUser();
+  const { user, setUser } = useAuth();
+  const location = useLocation();
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -30,22 +33,27 @@ const Navbar: React.FC = () => {
     }
   }, [lastScrollY]);
 
+  const isProfilePage = location.pathname === "/profile";
+
   return (
     <nav
       className={`fixed w-full transition-all duration-300 ease-in-out z-[1000] ${
-        isTop
+        isTop && !isProfilePage
           ? "bg-transparent border-b-2 border-transparent"
           : "bg-[#1f1f1f] border-b-2 border-primary-500"
       }`}
     >
       <div className="border-gray-200">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+        <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto py-2 lg:px-10 px-2">
+          <div className="flex items-center space-x-3">
             {/* Menu Button */}
             <button
               type="button"
-              className="lg:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-sm p-2.5"
-              onClick={() => setMenuOpen(!isMenuOpen)}
+              className="lg:hidden text-white focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg text-sm p-2.5"
+              onClick={() => {
+                setMenuOpen(!isMenuOpen);
+                setDropdownOpen(false);
+              }}
             >
               <svg
                 className="w-5 h-5"
@@ -65,10 +73,7 @@ const Navbar: React.FC = () => {
               <span className="sr-only">Menu</span>
             </button>
 
-            <a
-              href="/"
-              className="flex items-center space-x-3 rtl:space-x-reverse"
-            >
+            <a href="/" className="flex items-center justify-center space-x-3">
               <img
                 src="https://mangadex.org/img/brand/mangadex-logo.svg"
                 className="h-8"
@@ -137,10 +142,13 @@ const Navbar: React.FC = () => {
                 {/* User Dropdown */}
                 <button
                   type="button"
-                  className="flex text-sm bg-white rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
+                  className="flex text-sm rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
                   id="user-menu-button"
                   aria-expanded={isDropdownOpen}
-                  onClick={() => setDropdownOpen(!isDropdownOpen)}
+                  onClick={() => {
+                    setDropdownOpen(!isDropdownOpen);
+                    setMenuOpen(false);
+                  }}
                 >
                   <img
                     className="w-10 h-10 rounded-full"
@@ -163,10 +171,10 @@ const Navbar: React.FC = () => {
                     <ul className="py-2" aria-labelledby="user-menu-button">
                       <li>
                         <a
-                          href="#"
+                          href="/profile"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         >
-                          Dashboard
+                          Profile
                         </a>
                       </li>
                       <li>
@@ -187,7 +195,7 @@ const Navbar: React.FC = () => {
                       </li>
                       <li>
                         <a
-                          // href="/login"
+                          href="/"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={handleLogout}
                         >
@@ -202,15 +210,9 @@ const Navbar: React.FC = () => {
               <>
                 <a
                   href="/login"
-                  className="text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg p-2.5"
+                  className="text-sm text-white font-semibold hover:text-primary-500 p-2.5"
                 >
                   Login
-                </a>
-                <a
-                  href="/signup"
-                  className="text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg p-2.5"
-                >
-                  Signup
                 </a>
               </>
             )}
@@ -223,7 +225,7 @@ const Navbar: React.FC = () => {
             } items-center justify-between w-full lg:flex lg:w-auto lg:order-1`}
             id="navbar-user"
           >
-            <ul className="flex flex-col font-semibold text-md p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 xl:space-x-8 lg:space-x-4 lg:flex-row lg:mt-0 lg:border-0 lg:bg-transparent gap-4">
+            <ul className="flex flex-col font-semibold text-md p-4 lg:p-0 mt-4 bg-[#1f1f1f] xl:space-x-8 lg:space-x-4 lg:flex-row lg:mt-0 lg:border-0 lg:bg-transparent gap-4">
               <li>
                 <a
                   href="/"

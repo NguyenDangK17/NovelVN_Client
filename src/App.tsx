@@ -1,19 +1,25 @@
-import "./App.css";
+import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/HomePage.js";
-import Detail from "./pages/Novel/NovelDetailPage.js";
 import Layout from "./pages/Layout.js";
-import AboutPage from "./pages/AboutPage.js";
-import MangaListPage from "./pages/Manga/MangaListPage.js";
-import NovelListPage from "./pages/Novel/NovelListPage.js";
-import NovelChapterPage from "./pages/Novel/NovelChapterPage.js";
 import NotFoundPage from "./pages/404NotFoundPage.js";
-import LoginPage from "./pages/Authentication/LoginPage.js";
-import SignupPage from "./pages/Authentication/SignupPage.js";
+import "./App.css";
+import Loading from "./pages/Loading.js";
+
+const Home = lazy(() => import("./pages/HomePage.js"));
+const Detail = lazy(() => import("./pages/Novel/NovelDetailPage.js"));
+const AboutPage = lazy(() => import("./pages/AboutPage.js"));
+const MangaListPage = lazy(() => import("./pages/Manga/MangaListPage.js"));
+const NovelListPage = lazy(() => import("./pages/Novel/NovelListPage.js"));
+const NovelChapterPage = lazy(
+  () => import("./pages/Novel/NovelChapterPage.js")
+);
+const LoginPage = lazy(() => import("./pages/Authentication/LoginPage.js"));
+const SignupPage = lazy(() => import("./pages/Authentication/SignupPage.js"));
+const ProfilePage = lazy(() => import("./pages/User/ProfilePage.js"));
 
 function App() {
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -22,12 +28,13 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/manga" element={<MangaListPage />} />
           <Route path="/novel" element={<NovelListPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>
-    </>
+    </Suspense>
   );
 }
 

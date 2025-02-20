@@ -4,17 +4,22 @@ import Footer from "../components/Footer/Footer";
 
 const Layout: React.FC = () => {
   const location = useLocation();
-  const hideNavbarFooterRoutes = ["/comic/chapter/:id"];
+  const hideNavbarRoutes = ["/comic/chapter/:id"];
+  const hideFooterRoutes = ["/comic/chapter/:id", "/profile"];
 
-  const shouldHideNavbarFooter = hideNavbarFooterRoutes.some((route) =>
+  const shouldHideNavbar = hideNavbarRoutes.some((route) =>
+    matchPath(route, location.pathname)
+  );
+
+  const shouldHideFooter = hideFooterRoutes.some((route) =>
     matchPath(route, location.pathname)
   );
 
   return (
     <div>
-      {!shouldHideNavbarFooter && <Navbar />}
+      {!shouldHideNavbar && <Navbar />}
       <Outlet />
-      {!shouldHideNavbarFooter && <Footer />}
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const UserContext = createContext<UserContextType | undefined>(
   undefined
 );
 
-export const useUser = () => {
+export const useAuth = () => {
   const user = React.useContext(UserContext);
   if (user === undefined) {
     throw new Error("useUser must be used within a UserProvider");

@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-white"
               >
-                Username or email
+                Email
               </label>
               <input
                 type="email"
