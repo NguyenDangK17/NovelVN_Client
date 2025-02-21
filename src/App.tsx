@@ -4,6 +4,7 @@ import Layout from "./pages/Layout.js";
 import NotFoundPage from "./pages/404NotFoundPage.js";
 import "./App.css";
 import Loading from "./pages/Loading.js";
+import ScrollToTop from "./components/ScrollToTop.js";
 
 const Home = lazy(() => import("./pages/HomePage.js"));
 const Detail = lazy(() => import("./pages/Novel/NovelDetailPage.js"));
@@ -20,6 +21,7 @@ const ProfilePage = lazy(() => import("./pages/User/ProfilePage.js"));
 function App() {
   return (
     <Suspense fallback={<Loading />}>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />

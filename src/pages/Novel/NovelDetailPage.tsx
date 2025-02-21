@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import { Novel } from "../../types/novel";
+import Loading from "../Loading";
 
 const genres = [
   "Action",
@@ -40,7 +41,7 @@ const NovelDetail = () => {
     return () => clearTimeout(timer);
   }, [id]);
 
-  if (!novel) return <p className="text-center text-gray-500">Loading...</p>;
+  if (!novel) return <Loading />;
 
   return (
     <div className="relative p-6 w-full mx-auto text-white mb-7">

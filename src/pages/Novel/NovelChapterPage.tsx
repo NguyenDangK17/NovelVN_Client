@@ -1,19 +1,26 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Novel } from "../../types/novel";
 import CommentSection from "../../components/Comment/CommentSection";
+import Loading from "../Loading";
 
 const NovelChapterPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [novel, setNovel] = React.useState<Novel | null>(null);
+  const [novel, setNovel] = useState<Novel | null>(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/novels/${id}`)
-      .then((res) => setNovel(res.data));
+    const fetchNovel = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/novels/${id}`);
+        setNovel(res.data);
+      } catch (error) {
+        console.error("Error fetching novel:", error);
+      }
+    };
 
-    // Update view count after 60 seconds
+    fetchNovel();
+
     const timer = setTimeout(() => {
       axios.post(`http://localhost:5000/api/novels/${id}/view`);
     }, 60000);
@@ -21,7 +28,7 @@ const NovelChapterPage: React.FC = () => {
     return () => clearTimeout(timer);
   }, [id]);
 
-  if (!novel) return <div>Loading...</div>;
+  if (!novel) return <Loading />;
 
   const formattedContent = novel.content
     .replace(/\n{2,}/g, "\n")

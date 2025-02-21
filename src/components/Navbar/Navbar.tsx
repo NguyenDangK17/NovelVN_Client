@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/UserContext";
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from "../ui/menu";
 
 const Navbar: React.FC = () => {
   const { user, setUser } = useAuth();
@@ -141,28 +142,27 @@ const Navbar: React.FC = () => {
 
             {user ? (
               <>
-                {/* User Dropdown */}
-                <button
-                  type="button"
-                  className="flex text-sm rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
-                  id="user-menu-button"
-                  aria-expanded={isDropdownOpen}
-                  onClick={() => {
-                    setDropdownOpen(!isDropdownOpen);
-                    setMenuOpen(false);
-                  }}
-                >
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={user.avatar}
-                    alt="user photo"
-                  />
-                </button>
-
-                {/* Dropdown Menu */}
-                {isDropdownOpen && (
-                  <div className="absolute top-10 right-5 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm">
-                    <div className="px-4 py-3">
+                <MenuRoot>
+                  <MenuTrigger>
+                    <button
+                      type="button"
+                      className="flex text-sm rounded-full lg:me-0 focus:ring-2 focus:ring-primary-500"
+                      id="user-menu-button"
+                      aria-expanded={isDropdownOpen}
+                      onClick={() => {
+                        setDropdownOpen(!isDropdownOpen);
+                        setMenuOpen(false);
+                      }}
+                    >
+                      <img
+                        className="w-10 h-10 rounded-full"
+                        src={user.avatar}
+                        alt="user photo"
+                      />
+                    </button>
+                  </MenuTrigger>
+                  <MenuContent className="text-base list-none bg-white">
+                    <div className="p-2">
                       <span className="block text-sm text-gray-900">
                         {user.username}
                       </span>
@@ -170,43 +170,46 @@ const Navbar: React.FC = () => {
                         {user.email}
                       </span>
                     </div>
-                    <ul className="py-2" aria-labelledby="user-menu-button">
-                      <li>
-                        <a
-                          href="/profile"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
+                    <ul className="py-2">
+                      <MenuItem
+                        value="Profile"
+                        className="hover:bg-gray-300 hover:cursor-pointer"
+                      >
+                        <a href="/profile" className="text-sm text-gray-700">
                           Profile
                         </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
+                      </MenuItem>
+                      <MenuItem
+                        value="Settings"
+                        className="hover:bg-gray-300 hover:cursor-pointer"
+                      >
+                        <a href="#" className="text-sm text-gray-700">
                           Settings
                         </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
+                      </MenuItem>
+                      <MenuItem
+                        value="Earnings"
+                        className="hover:bg-gray-300 hover:cursor-pointer"
+                      >
+                        <a href="#" className="text-sm text-gray-700">
                           Earnings
                         </a>
-                      </li>
-                      <li>
+                      </MenuItem>
+                      <MenuItem
+                        value="Sign out"
+                        className="hover:bg-gray-300 hover:cursor-pointer"
+                      >
                         <a
                           href="/"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="text-sm text-red-500"
                           onClick={handleLogout}
                         >
                           Sign out
                         </a>
-                      </li>
+                      </MenuItem>
                     </ul>
-                  </div>
-                )}
+                  </MenuContent>
+                </MenuRoot>
               </>
             ) : (
               <>

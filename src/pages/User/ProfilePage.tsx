@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useAuth } from "../../context/UserContext";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Novel } from "../../types/novel";
 import { FaEnvelope, FaUser, FaLock } from "react-icons/fa";
 import { updateUser } from "../../utils/userUtils";
+
+const BACKGROUND_IMAGE_URL =
+  "https://cdn.donmai.us/original/ac/1b/__carlotta_wuthering_waves_drawn_by_void_0__ac1b3250aa00455d3d89bb1a87536de0.jpg";
 
 const ProfileHeader: React.FC = () => {
   const { user, setUser } = useAuth();
@@ -13,42 +16,43 @@ const ProfileHeader: React.FC = () => {
     return <Navigate to="/" />;
   }
 
-  const handleAvatarChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
+  const handleAvatarChange = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
 
-      const formData = new FormData();
-      formData.append("avatar", file);
-      formData.append("userId", user._id);
+        const formData = new FormData();
+        formData.append("avatar", file);
+        formData.append("userId", user._id);
 
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/api/auth/upload-avatar",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/api/auth/upload-avatar",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
 
-        const updatedUser = { ...user, avatar: response.data.avatar };
-        updateUser(updatedUser, setUser);
-      } catch (error) {
-        console.error("Error updating avatar:", error);
+          const updatedUser = { ...user, avatar: response.data.avatar };
+          updateUser(updatedUser, setUser);
+        } catch (error) {
+          console.error("Error updating avatar:", error);
+        }
       }
-    }
-  };
+    },
+    [user, setUser]
+  );
 
   return (
     <div className="relative h-[300px] md:h-[450px] bg-[#2c2c2c]">
       <div
         className="absolute inset-0 w-full h-[200px] md:h-[350px] bg-cover bg-center"
         style={{
-          backgroundImage: `url(https://cdn.donmai.us/original/ac/1b/__carlotta_wuthering_waves_drawn_by_void_0__ac1b3250aa00455d3d89bb1a87536de0.jpg)`,
+          backgroundImage: `url(${BACKGROUND_IMAGE_URL})`,
           backgroundPosition: "center 25%",
         }}
       />

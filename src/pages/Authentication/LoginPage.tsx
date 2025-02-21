@@ -1,44 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
+
+const BACKGROUND_IMAGE_URL =
+  "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5fb7d836-1124-43d9-937c-f365d9aeaa8b/dhq7vqm-9a9b72c8-0ecd-4410-9f34-f56496711bb9.png/v1/fill/w_1920,h_1080,q_80,strp/changli_wuthering_waves_by_muztnafi_dhq7vqm-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzVmYjdkODM2LTExMjQtNDNkOS05MzdjLWYzNjVkOWFlYWE4YlwvZGhxN3ZxbS05YTliNzJjOC0wZWNkLTQ0MTAtOWYzNC1mNTY0OTY3MTFiYjkucG5nIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.EIiXXuETBlG4AJwi8A4KFxgWpooSpjjtlaKFeAVsTi0";
+const LOGO_URL = "https://mangadex.org/img/brand/mangadex-logo.svg";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password,
+  const handleLogin = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          {
+            email,
+            password,
+          }
+        );
+        if (response.status === 200) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          window.location.replace("/");
         }
-      );
-      if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-        window.location.replace("/");
+      } catch (error) {
+        console.error("Error during login:", error);
+        alert("Login failed. Please try again.");
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-      alert("Login failed. Please try again.");
-    }
-  };
+    },
+    [email, password]
+  );
 
   return (
     <section
       className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage:
-          "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5fb7d836-1124-43d9-937c-f365d9aeaa8b/dhq7vqm-9a9b72c8-0ecd-4410-9f34-f56496711bb9.png/v1/fill/w_1920,h_1080,q_80,strp/changli_wuthering_waves_by_muztnafi_dhq7vqm-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzVmYjdkODM2LTExMjQtNDNkOS05MzdjLWYzNjVkOWFlYWE4YlwvZGhxN3ZxbS05YTliNzJjOC0wZWNkLTQ0MTAtOWYzNC1mNTY0OTY3MTFiYjkucG5nIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.EIiXXuETBlG4AJwi8A4KFxgWpooSpjjtlaKFeAVsTi0')",
-      }}
+      style={{ backgroundImage: `url(${BACKGROUND_IMAGE_URL})` }}
     >
       <div className="flex items-center justify-center mb-6">
-        <img
-          className="w-12 h-12 mr-2"
-          src="https://mangadex.org/img/brand/mangadex-logo.svg"
-          alt="logo"
-        />
+        <img className="w-12 h-12 mr-2" src={LOGO_URL} alt="logo" />
         <span
           className="text-3xl font-bold text-white hover:cursor-pointer"
           onClick={() => window.location.replace("/")}
