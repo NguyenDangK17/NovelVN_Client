@@ -85,7 +85,7 @@ const CarouselComponent: React.FC = () => {
                   <img
                     src={slide.image}
                     alt={slide.title}
-                    className="w-full h-auto aspect-[283/403] object-cover"
+                    className="w-full h-auto aspect-[1443/2048] object-cover"
                   />
                 </div>
               </div>

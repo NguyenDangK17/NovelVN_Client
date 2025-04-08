@@ -11,7 +11,7 @@ import {
   FaShare,
 } from "react-icons/fa";
 import axios from "axios";
-import { Novel } from "../../types/novel";
+import { Manga } from "@/types/manga";
 import Loading from "../Loading";
 
 const genres = [
@@ -23,25 +23,41 @@ const genres = [
   "Shounen",
 ];
 
-const NovelDetail = () => {
+const MangaDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [novel, setNovel] = useState<Novel | null>(null);
-  const [showChapters, setShowChapters] = useState(true);
+  const [manga, setManga] = useState<Manga | null>(null);
+  const [openVolumes, setOpenVolumes] = useState<Record<string, boolean>>({});
+  const [chapters, setChapters] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/novels/${id}`)
-      .then((res) => setNovel(res.data));
+      .get(`http://localhost:5000/api/mangas/${id}`)
+      .then((res) => setManga(res.data));
 
     // Update view count after 60 seconds
     const timer = setTimeout(() => {
-      axios.post(`http://localhost:5000/api/novels/${id}/view`);
+      axios.post(`http://localhost:5000/api/mangas/${id}/view`);
     }, 60000);
 
     return () => clearTimeout(timer);
   }, [id]);
 
-  if (!novel) return <Loading />;
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.mangadex.org/manga/0a4bdf95-dc11-4011-937e-7bdc4dd6e786/aggregate?translatedLanguage%5B%5D=vi"
+      )
+      .then((res) => setChapters(res.data.volumes));
+  }, []);
+
+  if (!manga) return <Loading />;
+
+  const toggleVolume = (volumeKey: string) => {
+    setOpenVolumes((prev) => ({
+      ...prev,
+      [volumeKey]: !prev[volumeKey],
+    }));
+  };
 
   return (
     <div className="relative p-6 w-full mx-auto text-white mb-7">
@@ -49,8 +65,8 @@ const NovelDetail = () => {
       <div
         className="absolute inset-0 w-full h-[300px] md:h-[400px] bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(25, 26, 28, 0.6) 10%, rgb(25, 26, 28) 90%), url(${novel.image})`,
-          backgroundPosition: "center 20%",
+          backgroundImage: `linear-gradient(to bottom, rgba(25, 26, 28, 0.6) 10%, rgb(25, 26, 28) 90%), url(${manga.manga_cover})`,
+          backgroundPosition: "center 25%",
         }}
       />
 
@@ -72,17 +88,17 @@ const NovelDetail = () => {
               <div className="w-full md:w-3/12 flex justify-center">
                 <div className="relative w-[200px] md:w-[250px] lg:w-[283px] max-w-full">
                   <img
-                    src={novel.image}
-                    alt={novel.title}
-                    className="w-full h-auto aspect-[283/403] object-cover"
+                    src={manga.manga_cover}
+                    alt={manga.title}
+                    className="w-full h-auto aspect-[1443/2048] object-cover"
                   />
                 </div>
               </div>
 
               {/* Novel Details */}
               <div className="w-full md:w-9/12 flex flex-col justify-between space-y-2">
-                <h1 className="text-2xl md:text-3xl font-bold">
-                  {novel.title}
+                <h1 className="text-2xl md:text-4xl font-bold mb-2">
+                  {manga.title}
                 </h1>
 
                 {/* Genres */}
@@ -102,13 +118,13 @@ const NovelDetail = () => {
                   <span className="font-semibold text-primary-500 mr-2">
                     Author:
                   </span>
-                  Extra7
+                  {manga.author}
                 </p>
                 <p>
                   <span className="font-semibold text-primary-500 mr-2">
                     Artist:
                   </span>
-                  Somebody
+                  {manga.artist || "No artist"}
                 </p>
                 <p>
                   <span className="font-semibold text-primary-500 mr-2">
@@ -120,7 +136,7 @@ const NovelDetail = () => {
                   <span className="font-semibold text-primary-500 mr-2">
                     Status:
                   </span>
-                  Ongoing
+                  {manga.status}
                 </p>
 
                 {/* Action Buttons */}
@@ -185,7 +201,7 @@ const NovelDetail = () => {
               <div>
                 <p className="text-md text-gray-500 font-bold">Views</p>
                 <p className="text-2xl font-bold text-white">
-                  {novel.viewCount.toLocaleString()}
+                  {manga.viewCount.toLocaleString()}
                 </p>
               </div>
             </div>
@@ -202,46 +218,58 @@ const NovelDetail = () => {
             <div className="mt-10">
               {/* Description Section */}
               <h2 className="text-xl font-bold text-white mb-2">Description</h2>
-              <p className="text-white rounded-md">{novel.description}</p>
+              <p className="text-white rounded-md">{manga.description}</p>
             </div>
           </div>
 
           {/* Section 2: Chapter List */}
-          <div className="rounded-lg bg-[#2c2c2c]">
-            <button
-              className="flex items-center justify-between w-full bg-[#2c2c2c] rounded-md px-6 py-4"
-              onClick={() => setShowChapters(!showChapters)}
-            >
-              <span className="font-bold text-white text-xl">
-                Chapters List
-              </span>
-              {showChapters ? <FaChevronUp /> : <FaChevronDown />}
-            </button>
+          <div className="space-y-4">
+            {Object.entries(chapters).map(([volumeKey, volumeData]) => (
+              <div key={volumeKey} className="rounded-lg bg-[#2c2c2c]">
+                <button
+                  className="flex items-center justify-between w-full bg-[#2c2c2c] rounded-md px-6 py-4"
+                  onClick={() => toggleVolume(volumeKey)}
+                >
+                  <span className="font-bold text-white text-2xl">
+                    Volume {volumeKey}
+                  </span>
+                  {openVolumes[volumeKey] ? <FaChevronUp /> : <FaChevronDown />}
+                </button>
 
-            {showChapters && (
-              <div className="p-4 bg-[#1e1e1e] flex flex-col md:flex-row">
-                <img
-                  src={novel.image}
-                  alt="Novel Cover"
-                  className="w-[141px] h-[201px] mx-auto md:mx-0 md:mr-6 object-cover"
-                />
-                <div className="flex-1">
-                  <ul className="overflow-y-auto max-h-64">
-                    {Array.from({ length: 15 }, (_, i) => (
-                      <li
-                        key={i}
-                        className="py-2 border-b border-gray-700 hover:bg-[#292929] cursor-pointer px-3"
-                        onClick={() => {
-                          window.location.href = `/comic/chapter/${novel._id}`;
-                        }}
-                      >
-                        Chapter {i + 1} - Title {i + 1}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {!openVolumes[volumeKey] && (
+                  <div className="p-4 bg-[#1e1e1e] flex flex-col md:flex-row">
+                    <img
+                      src={manga.manga_cover}
+                      alt="Novel Cover"
+                      className="w-[141px] h-[201px] mx-auto md:mx-0 md:mr-6 object-cover"
+                    />
+                    <div className="flex-1">
+                      <ul className="overflow-y-auto max-h-64">
+                        {Object.entries(volumeData)
+                          .sort(([a], [b]) => parseFloat(a) - parseFloat(b))
+                          .map(([chapterKey, chapter]: any) => (
+                            <ul key={chapterKey}>
+                              {Object.entries(chapter).map(
+                                ([key, value]: any) => (
+                                  <li
+                                    key={key}
+                                    className="py-2 border-b border-gray-700 hover:bg-[#292929] cursor-pointer px-3"
+                                    onClick={() =>
+                                      (window.location.href = `/chapter/${value.id}`)
+                                    }
+                                  >
+                                    Chapter {key}
+                                  </li>
+                                )
+                              )}
+                            </ul>
+                          ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
         </div>
 
@@ -305,4 +333,4 @@ const NovelDetail = () => {
   );
 };
 
-export default NovelDetail;
+export default MangaDetailPage;

@@ -32,7 +32,7 @@ const NovelList = ({ title, novels }: NovelListProps) => {
                 <img
                   src={novel.image}
                   alt={novel.title}
-                  className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+                  className="w-full h-auto aspect-[1443/2048] object-cover hover:cursor-pointer"
                 />
                 <h2 className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden group-hover:text-primary-500">
                   {truncateTitle(novel.title, 40)}

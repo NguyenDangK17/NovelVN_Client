@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import { Novel } from "../types/novel";
+import { Manga } from "@/types/manga";
 import CarouselComponent from "../components/Home/Carousel";
 import { Carousel } from "antd";
 import { FaEye } from "react-icons/fa";
@@ -75,14 +75,14 @@ const forums = [
 ];
 
 const Home = () => {
-  const [comics, setComics] = useState<Novel[]>([]);
+  const [comics, setComics] = useState<Manga[]>([]);
   const [activeTab, setActiveTab] = useState<"weekly" | "monthly" | "all time">(
     "weekly"
   );
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/novels")
+      .get("http://localhost:5000/api/mangas")
       .then((res) => setComics(res.data));
   }, []);
 
@@ -98,20 +98,20 @@ const Home = () => {
     return comics.slice(2, 9);
   }, [activeTab, comics]);
 
-  const ComicCard = ({ comic }: { comic: Novel }) => (
+  const MangaCard = ({ manga }: { manga: Manga }) => (
     <div className="flex flex-col">
       <div className="group">
-        <Link to={`/comic/${comic._id}`}>
+        <Link to={`/comic/${manga._id}`}>
           <img
-            src={comic.image}
-            alt={comic.title}
-            className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+            src={manga.manga_cover}
+            alt={manga.title}
+            className="w-full h-auto aspect-[1443/2048] object-cover hover:cursor-pointer"
           />
           <h2
             className="text-lg font-bold my-2 min-h-[3rem] line-clamp-2 overflow-hidden 
             hover:cursor-pointer group-hover:text-primary-500"
           >
-            {truncateTitle(comic.title, 40)}
+            {truncateTitle(manga.title, 40)}
           </h2>
         </Link>
       </div>
@@ -172,12 +172,12 @@ const Home = () => {
               >
                 <Link to={`/comic/${comic._id}`}>
                   <img
-                    src={comic.image}
+                    src={comic.manga_cover}
                     alt={comic.title}
-                    className="w-full h-auto aspect-[283/403] object-cover hover:cursor-pointer"
+                    className="w-full h-auto aspect-[1443/2048] object-cover hover:cursor-pointer"
                   />
                   <h2 className="text-lg text-center font-bold mt-2 mx-4 text-white group-hover:text-primary-500">
-                    {truncateTitle(comic.title, 40)}
+                    {truncateTitle(comic.title, 35)}
                   </h2>
                 </Link>
               </div>
@@ -252,7 +252,7 @@ const Home = () => {
                     {index + 1}
                   </span>
                   <img
-                    src={comic.image}
+                    src={comic.manga_cover}
                     alt={comic.title}
                     className="w-20 h-auto object-cover"
                     style={{ aspectRatio: "283 / 403" }}
@@ -300,7 +300,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
             {comics.slice(0, 5).map((comic) => (
-              <ComicCard key={comic._id} comic={comic} />
+              <MangaCard key={comic._id} manga={comic} />
             ))}
           </div>
 
@@ -315,7 +315,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
             {comics.slice(0, 10).map((comic) => (
-              <ComicCard key={comic._id} comic={comic} />
+              <MangaCard key={comic._id} manga={comic} />
             ))}
           </div>
         </div>

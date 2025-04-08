@@ -174,38 +174,30 @@ const Navbar: React.FC = () => {
                       <MenuItem
                         value="Profile"
                         className="hover:bg-gray-300 hover:cursor-pointer"
+                        onClick={() => navigate("/profile")}
                       >
-                        <a href="/profile" className="text-sm text-gray-700">
-                          Profile
-                        </a>
-                      </MenuItem>
-                      <MenuItem
-                        value="Settings"
-                        className="hover:bg-gray-300 hover:cursor-pointer"
-                      >
-                        <a href="#" className="text-sm text-gray-700">
-                          Settings
-                        </a>
+                        <p className="text-sm text-gray-700">Profile</p>
                       </MenuItem>
                       <MenuItem
                         value="Earnings"
                         className="hover:bg-gray-300 hover:cursor-pointer"
+                        onClick={() => navigate("/dashboard")}
                       >
-                        <a href="#" className="text-sm text-gray-700">
-                          Earnings
-                        </a>
+                        <p className="text-sm text-gray-700">Dashboard</p>
+                      </MenuItem>
+                      <MenuItem
+                        value="Settings"
+                        className="hover:bg-gray-300 hover:cursor-pointer"
+                        onClick={() => navigate("/settings")}
+                      >
+                        <p className="text-sm text-gray-700">Settings</p>
                       </MenuItem>
                       <MenuItem
                         value="Sign out"
                         className="hover:bg-gray-300 hover:cursor-pointer"
+                        onClick={handleLogout}
                       >
-                        <a
-                          href="/"
-                          className="text-sm text-red-500"
-                          onClick={handleLogout}
-                        >
-                          Sign out
-                        </a>
+                        <p className="text-sm text-red-500">Sign out</p>
                       </MenuItem>
                     </ul>
                   </MenuContent>

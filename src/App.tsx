@@ -18,6 +18,16 @@ const LoginPage = lazy(() => import("./pages/Authentication/LoginPage.js"));
 const SignupPage = lazy(() => import("./pages/Authentication/SignupPage.js"));
 const ProfilePage = lazy(() => import("./pages/User/ProfilePage.js"));
 
+const Dashboard = lazy(() => import("./pages/Management/Dashboard.js"));
+const CreateMangaPage = lazy(
+  () => import("./pages/Management/CreateMangaPage.js")
+);
+const EditMangaPage = lazy(() => import("./pages/Management/EditMangaPage.js"));
+
+const MangaChapterPage = lazy(
+  () => import("./pages/Manga/MangaChapterPage.js")
+);
+
 function App() {
   return (
     <Suspense fallback={<Loading />}>
@@ -32,6 +42,10 @@ function App() {
           <Route path="/novel" element={<NovelListPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/action/manga/create" element={<CreateMangaPage />} />
+        <Route path="/action/manga/:id/edit" element={<EditMangaPage />} />
+        <Route path="/chapter/:id" element={<MangaChapterPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
