@@ -54,9 +54,9 @@ export default function EditManga() {
       <main className="flex-1 bg-gray-800 p-6 text-white">
         {currentTab === "editseries" && <EditSeries manga={manga} />}
         {currentTab === "editvolume" && <EditVolume volumes={volumes} />}
-        {currentTab === "editchapter" && <EditChapter manga={manga} />}
+        {/* {currentTab === "editchapter" && <EditChapter manga={manga} />} */}
         {currentTab === "addvolume" && <AddVolume manga={manga} />}
-        {currentTab === "addchapter" && <AddChapter manga={manga} />}
+        {/* {currentTab === "addchapter" && <AddChapter manga={manga} />} */}
       </main>
     </div>
   );
@@ -319,11 +319,4 @@ function EditVolume({ volumes }: { volumes: any[] }) {
       </button>
     </div>
   );
-}
-
-function EditChapter({ manga }: any) {
-  return <div>Edit Chapter</div>;
-}
-function AddChapter({ manga }: any) {
-  return <div>Add Chapter</div>;
 }
