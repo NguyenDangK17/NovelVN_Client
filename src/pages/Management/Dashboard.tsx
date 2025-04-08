@@ -17,7 +17,7 @@ export default function MangaList() {
       if (!user?.token) return;
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/mangas/work",
+          "https://novelvn-server.onrender.com/api/mangas/work",
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }
@@ -37,7 +37,7 @@ export default function MangaList() {
     if (!confirm("Are you sure you want to delete this manga?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/mangas/${id}`, {
+      await axios.delete(`https://novelvn-server.onrender.com/api/mangas/${id}`, {
         headers: { Authorization: `Bearer ${user?.token}` },
       });
       setMangaList((prev) => prev.filter((manga) => manga._id !== id));

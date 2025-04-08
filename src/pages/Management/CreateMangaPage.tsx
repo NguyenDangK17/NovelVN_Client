@@ -22,7 +22,7 @@ export default function CreateManga() {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:5000/api/mangas",
+        "https://novelvn-server.onrender.com/api/mangas",
         { title, manga_cover: cover, author, description: "Nothing" },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );

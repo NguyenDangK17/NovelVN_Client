@@ -20,10 +20,10 @@ export default function EditManga() {
 
       try {
         const [mangaRes, volumesRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/mangas/${id}`, {
+          axios.get(`https://novelvn-server.onrender.com/api/mangas/${id}`, {
             headers: { Authorization: `Bearer ${user.token}` },
           }),
-          axios.get(`http://localhost:5000/api/volumes/${id}/get-volumes`),
+          axios.get(`https://novelvn-server.onrender.com/api/volumes/${id}/get-volumes`),
         ]);
 
         setManga(mangaRes.data);
@@ -213,7 +213,7 @@ function AddVolume({ manga }: { manga: any }) {
     setLoading(true);
     try {
       await axios.post(
-        `http://localhost:5000/api/volumes/${manga._id}/create-volume`,
+        `https://novelvn-server.onrender.com/api/volumes/${manga._id}/create-volume`,
         { volume_title: volumeTitle }, // Updated to match backend
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );
@@ -279,7 +279,7 @@ function EditVolume({ volumes }: { volumes: any[] }) {
     setLoading(true);
     try {
       await axios.patch(
-        `http://localhost:5000/api/volumes/${volumeId}`,
+        `https://novelvn-server.onrender.com/api/volumes/${volumeId}`,
         { volume_title: volumeTitle, volume_cover: volumeCover },
         { headers: { Authorization: `Bearer ${user?.token}` } }
       );

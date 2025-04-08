@@ -82,7 +82,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/mangas")
+      .get("https://novelvn-server.onrender.com/api/mangas")
       .then((res) => setComics(res.data));
   }, []);
 

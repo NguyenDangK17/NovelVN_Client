@@ -27,7 +27,7 @@ const ProfileHeader: React.FC = () => {
 
         try {
           const response = await axios.post(
-            "http://localhost:5000/api/auth/upload-avatar",
+            "https://novelvn-server.onrender.com/api/auth/upload-avatar",
             formData,
             {
               headers: {
@@ -276,7 +276,7 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/novels")
+      .get("https://novelvn-server.onrender.com/api/novels")
       .then((res) => setComics(res.data));
   }, []);
 

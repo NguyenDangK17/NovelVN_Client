@@ -31,12 +31,12 @@ const MangaDetailPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/mangas/${id}`)
+      .get(`https://novelvn-server.onrender.com/api/mangas/${id}`)
       .then((res) => setManga(res.data));
 
     // Update view count after 60 seconds
     const timer = setTimeout(() => {
-      axios.post(`http://localhost:5000/api/mangas/${id}/view`);
+      axios.post(`https://novelvn-server.onrender.com/api/mangas/${id}/view`);
     }, 60000);
 
     return () => clearTimeout(timer);

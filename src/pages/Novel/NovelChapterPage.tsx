@@ -12,7 +12,7 @@ const NovelChapterPage: React.FC = () => {
   useEffect(() => {
     const fetchNovel = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/novels/${id}`);
+        const res = await axios.get(`https://novelvn-server.onrender.com/api/novels/${id}`);
         setNovel(res.data);
       } catch (error) {
         console.error("Error fetching novel:", error);
@@ -22,7 +22,7 @@ const NovelChapterPage: React.FC = () => {
     fetchNovel();
 
     const timer = setTimeout(() => {
-      axios.post(`http://localhost:5000/api/novels/${id}/view`);
+      axios.post(`https://novelvn-server.onrender.com/api/novels/${id}/view`);
     }, 60000);
 
     return () => clearTimeout(timer);

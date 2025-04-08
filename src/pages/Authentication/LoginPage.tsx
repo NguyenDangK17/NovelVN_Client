@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
       e.preventDefault();
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/auth/login",
+          "https://novelvn-server.onrender.com/api/auth/login",
           {
             email,
             password,

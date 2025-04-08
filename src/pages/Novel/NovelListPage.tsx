@@ -7,7 +7,7 @@ const PatchRequestComponent: React.FC = () => {
     event.preventDefault();
 
     const url =
-      "http://localhost:5000/comics/chapters/67adfa11f12638885953266c";
+      "https://novelvn-server.onrender.com/comics/chapters/67adfa11f12638885953266c";
 
     try {
       const response = await fetch(url, {
