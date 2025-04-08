@@ -8,8 +8,6 @@ import ScrollToTop from "./components/ScrollToTop.js";
 
 const Home = lazy(() => import("./pages/HomePage.js"));
 const Detail = lazy(() => import("./pages/Novel/NovelDetailPage.js"));
-const AboutPage = lazy(() => import("./pages/AboutPage.js"));
-const MangaListPage = lazy(() => import("./pages/Manga/MangaListPage.js"));
 const NovelListPage = lazy(() => import("./pages/Novel/NovelListPage.js"));
 const NovelChapterPage = lazy(
   () => import("./pages/Novel/NovelChapterPage.js")
@@ -37,8 +35,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/comic/:id" element={<Detail />} />
           <Route path="/comic/chapter/:id" element={<NovelChapterPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/manga" element={<MangaListPage />} />
           <Route path="/novel" element={<NovelListPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
